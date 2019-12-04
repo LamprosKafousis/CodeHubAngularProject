@@ -1,8 +1,8 @@
 <table mdbTable>
     <thead>
         <tr>
-            <th *ngFor="let head of headElements" scope="col">{{head}} </th>
-          </tr>
+            <button *ngFor="let head of headElements" scope="col" (click)="sorting(head)">{{head}} </button>
+        </tr>
     </thead>
     <tbody>
       <tr mdbTableCol *ngFor="let bug of bugs">

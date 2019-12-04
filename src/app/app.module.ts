@@ -5,7 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ListOfBugsModule } from './list-of-bugs/list-of-bugs.module';
 import { HttpClientModule } from '@angular/common/http';
-
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatInputModule, MatPaginatorModule, MatProgressSpinnerModule,
+  MatSortModule, MatTableModule } from '@angular/material';
 @NgModule({
   declarations: [
     AppComponent
@@ -14,7 +16,13 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     ListOfBugsModule,
-    HttpClientModule
+    HttpClientModule,
+    NoopAnimationsModule,
+    MatInputModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
