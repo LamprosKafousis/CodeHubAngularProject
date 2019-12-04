@@ -1,1 +1,16 @@
-<p>list-of-bugs works!</p>
+<table mdbTable>
+  <thead>
+      <tr>
+          <button *ngFor="let head of headElements" scope="col" (click)="sorting(head)">{{head}} </button>
+      </tr>
+  </thead>
+  <tbody>
+    <tr mdbTableCol *ngFor="let bug of bugs">
+      <td>{{bug.title}}</td>
+      <td>{{bug.priority}}</td>
+      <td>{{bug.reporter}}</td>
+      <td>{{bug.createdAt | date:'shortDate' }}</td>
+      <td>{{bug.status}}</td>
+    </tr>
+  </tbody>
+</table>
