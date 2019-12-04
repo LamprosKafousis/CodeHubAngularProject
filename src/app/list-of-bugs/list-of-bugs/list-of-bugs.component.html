@@ -1,16 +1,16 @@
 <table mdbTable>
-    <thead>
-        <tr>
-            <th *ngFor="let head of headElements" scope="col">{{head}} </th>
-          </tr>
-    </thead>
-    <tbody>
-      <tr mdbTableCol *ngFor="let bug of bugs">
-        <td>{{bug.title}}</td>
-        <td>{{bug.priority}}</td>
-        <td>{{bug.reporter}}</td>
-        <td>{{bug.createdAt | date:'shortDate' }}</td>
-        <td>{{bug.status}}</td>
+  <thead>
+      <tr>
+          <button *ngFor="let head of headElements" scope="col" (click)="sorting(head)">{{head}} </button>
       </tr>
-    </tbody>
-  </table>
+  </thead>
+  <tbody>
+    <tr mdbTableCol *ngFor="let bug of bugs">
+      <td>{{bug.title}}</td>
+      <td>{{bug.priority}}</td>
+      <td>{{bug.reporter}}</td>
+      <td>{{bug.createdAt | date:'shortDate' }}</td>
+      <td>{{bug.status}}</td>
+    </tr>
+  </tbody>
+</table>
