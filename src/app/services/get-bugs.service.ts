@@ -7,60 +7,16 @@ import { Observable } from 'rxjs';
 })
 export class GetBugsService {
 
-  //private readonly endpoint = 'https://bug-report-system-server.herokuapp.com/bugs?sort=title,desc&page=0&size=10&title=bug&priority=1&reporter=QA&status=Done';
-
   constructor(private http: HttpClient) { }
-  private sorting = 'asc';
-  private previousSort = 'title';
+
+  private headers = [
+    {header: 'title'    , ordering: true},
+    {header: 'priority' , ordering: true},
+    {header: 'reporter' , ordering: true},
+    {header: 'createdAt', ordering: true},
+    {header: 'status'   , ordering: true}];
+
   getBugs(sort?: string,
-<<<<<<< HEAD
-                       page?: number,
-                       size?: number,
-                       title?: string,
-                       priority?: number,
-                       reporter?: string,
-                       status?: string,
-                       createdAt?: Date): Observable<any> {
-                       let endpoint = 'https://bug-report-system-server.herokuapp.com/bugs?&size=100';
-
-
-    if (sort !== '' && sort != null) {
-      if(sort == this.previousSort){
-      if (this.sorting == 'desc'){
-        this.sorting = 'asc';
-      }
-      else {
-        this.sorting = 'desc';
-      }}
-      else {
-        this.sorting = 'asc';
-      }
-      this.previousSort = sort;
-      endpoint = endpoint + '&sort=' + sort +','+this.sorting;
-      console.log(endpoint);
-    }
-
-   // if (page != null) {
-   //   this.endpoint = this.endpoint + 'page=' + page;
-  //  }
-
-   // if (size != null) {
-   //   this.endpoint = this.endpoint + 'size=' + size;
-  //  }
-
-  //  if (title !== '' && title != null) {
-  //    this.endpoint = this.endpoint + 'title=' + title;
-  //  }
-
-  //  if (priority !== null) {
-  //    this.endpoint = this.endpoint + 'priority=' + priority;
-  //  }
-
-
-
-    return this.http.get(endpoint);
-   }
-=======
           page?: number,
           size?: number,
           title?: string,
@@ -68,33 +24,22 @@ export class GetBugsService {
           reporter?: string,
           status?: string,
           createdAt?: Date): Observable<any> {
+
     let endpoint = 'https://bug-report-system-server.herokuapp.com/bugs?&size=100';
 
     if (sort != null) {
-      const sorted = this.getBugsSorted(sort);
-      endpoint = endpoint + sorted;
+      endpoint += this.getBugsSorting(sort);
     }
 
     return this.http.get(endpoint);
   }
 
+  getBugsSorting(sortHead: string): string {
+    let ordering = this.headers.find(x => x.header === sortHead).ordering;
+    ordering = !ordering;
+    const sortOrder = ordering ? 'asc' : 'desc';
 
-    getBugsSorted(sort: string): string {
+    return ('&sort=' + sortHead + ',' +  sortOrder );
+  }
 
-      if (sort === this.previousSort) {
-        if (this.sorting === 'desc') {
-          this.sorting = 'asc';}
-        else {
-          this.sorting = 'desc';
-        }
-      }
-      else {
-        this.sorting = 'asc';
-      }
-      this.previousSort = sort;
-      return ('&sort=' + sort + ',' + this.sorting);
-
-    }
-
->>>>>>> 62c553f545c43cd20c9cc8d00569a346c54a8edf
 }
