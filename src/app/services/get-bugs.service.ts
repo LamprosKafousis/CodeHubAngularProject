@@ -7,11 +7,15 @@ import { Observable } from 'rxjs';
 })
 export class GetBugsService {
 
-  //private readonly endpoint = 'https://bug-report-system-server.herokuapp.com/bugs?sort=title,desc&page=0&size=10&title=bug&priority=1&reporter=QA&status=Done';
-
   constructor(private http: HttpClient) { }
-  private sorting = 'asc';
-  private previousSort = 'title';
+
+  private headers = [
+    {header: 'title'    , ordering: true},
+    {header: 'priority' , ordering: true},
+    {header: 'reporter' , ordering: true},
+    {header: 'createdAt', ordering: true},
+    {header: 'status'   , ordering: true}];
+
   getBugs(sort?: string,
           page?: number,
           size?: number,
@@ -20,32 +24,25 @@ export class GetBugsService {
           reporter?: string,
           status?: string,
           createdAt?: Date): Observable<any> {
+
     let endpoint = 'https://bug-report-system-server.herokuapp.com/bugs?&size=100';
 
     if (sort != null) {
-      const sorted = this.getBugsSorted(sort);
-      endpoint = endpoint + sorted;
+      endpoint += this.getBugsSorting(sort);
     }
 
     return this.http.get(endpoint);
   }
 
-
-    getBugsSorted(sort: string): string {
-
-      if (sort === this.previousSort) {
-        if (this.sorting === 'desc') {
-          this.sorting = 'asc';}
-        else {
-          this.sorting = 'desc';
-        }
+  getBugsSorting(sortHead: string): string {
+    let sortOrder = 'asc';
+    this.headers.forEach(item => {
+      if (item.header === sortHead) {
+        item.ordering = !item.ordering;
+        sortOrder = item.ordering ? 'asc' : 'desc';
       }
-      else {
-        this.sorting = 'asc';
-      }
-      this.previousSort = sort;
-      return ('&sort=' + sort + ',' + this.sorting);
-
-    }
+    });
+    return ('&sort=' + sortHead + ',' +  sortOrder );
+  }
 
 }

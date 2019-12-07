@@ -15,13 +15,12 @@ export class ListOfBugsComponent implements OnInit {
 
   this.getBugsService.getBugs(null, null, null, null, null, null, null, null).subscribe(
     (bugs: Bug[]) => {this.bugs = bugs;});
-}
+  }
 
-sorting( sort: string) {
-  this.getBugsService.getBugs(sort, null, null, null, null, null, null, null).subscribe(
-    (bugs: Bug[]) => {this.bugs = bugs;});
-
-}
+  sorting( sortHead: string) {
+    this.getBugsService.getBugs(sortHead, null, null, null, null, null, null, null).subscribe(
+      (bugs: Bug[]) => {this.bugs = bugs;});
+  }
 
 }
 interface Bug {
