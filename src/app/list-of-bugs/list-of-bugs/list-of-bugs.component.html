@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <table mdbTable>
     <thead>
         <tr>
@@ -14,3 +15,21 @@
       </tr>
     </tbody>
   </table>
+=======
+<table mdbTable>
+  <thead>
+      <tr>
+          <button *ngFor="let head of headElements" scope="col" (click)="sorting(head)">{{head}} </button>
+      </tr>
+  </thead>
+  <tbody>
+    <tr mdbTableCol *ngFor="let bug of bugs">
+      <td>{{bug.title}}</td>
+      <td>{{bug.priority}}</td>
+      <td>{{bug.reporter}}</td>
+      <td>{{bug.createdAt | date:'shortDate' }}</td>
+      <td>{{bug.status}}</td>
+    </tr>
+  </tbody>
+</table>
+>>>>>>> 62c553f545c43cd20c9cc8d00569a346c54a8edf

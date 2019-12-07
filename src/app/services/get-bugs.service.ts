@@ -13,6 +13,7 @@ export class GetBugsService {
   private sorting = 'asc';
   private previousSort = 'title';
   getBugs(sort?: string,
+<<<<<<< HEAD
                        page?: number,
                        size?: number,
                        title?: string,
@@ -59,4 +60,41 @@ export class GetBugsService {
 
     return this.http.get(endpoint);
    }
+=======
+          page?: number,
+          size?: number,
+          title?: string,
+          priority?: number,
+          reporter?: string,
+          status?: string,
+          createdAt?: Date): Observable<any> {
+    let endpoint = 'https://bug-report-system-server.herokuapp.com/bugs?&size=100';
+
+    if (sort != null) {
+      const sorted = this.getBugsSorted(sort);
+      endpoint = endpoint + sorted;
+    }
+
+    return this.http.get(endpoint);
+  }
+
+
+    getBugsSorted(sort: string): string {
+
+      if (sort === this.previousSort) {
+        if (this.sorting === 'desc') {
+          this.sorting = 'asc';}
+        else {
+          this.sorting = 'desc';
+        }
+      }
+      else {
+        this.sorting = 'asc';
+      }
+      this.previousSort = sort;
+      return ('&sort=' + sort + ',' + this.sorting);
+
+    }
+
+>>>>>>> 62c553f545c43cd20c9cc8d00569a346c54a8edf
 }
