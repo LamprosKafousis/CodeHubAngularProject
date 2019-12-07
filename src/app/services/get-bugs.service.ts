@@ -35,13 +35,9 @@ export class GetBugsService {
   }
 
   getBugsSorting(sortHead: string): string {
-    let sortOrder = 'asc';
-    this.headers.forEach(item => {
-      if (item.header === sortHead) {
-        item.ordering = !item.ordering;
-        sortOrder = item.ordering ? 'asc' : 'desc';
-      }
-    });
+    const item = this.headers.find(x => x.header === sortHead );
+    item.ordering = !item.ordering;
+    const sortOrder = item.ordering ? 'asc' : 'desc';
     return ('&sort=' + sortHead + ',' +  sortOrder );
   }
 
