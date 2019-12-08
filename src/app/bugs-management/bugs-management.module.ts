@@ -6,14 +6,26 @@ import { SearchComponent } from './bugs-management/search/search.component';
 import { ListComponent } from './bugs-management/list/list.component';
 import { MaintainComponent } from './bugs-maintenance/maintain/maintain.component';
 import { CommentsComponent } from './bugs-maintenance/comments/comments.component';
+import { RouterModule, Routes } from '@angular/router';
 
-
+const routes: Routes = [
+  { path: 'bugs', component: BugsManagementComponent },
+  { path: 'bugs/new', component: BugsMaintenanceComponent }
+];
 
 @NgModule({
-  declarations: [BugsManagementComponent, BugsMaintenanceComponent, SearchComponent, ListComponent, MaintainComponent, CommentsComponent],
+  declarations: [BugsManagementComponent,
+                 BugsMaintenanceComponent,
+                 SearchComponent,
+                 ListComponent,
+                 MaintainComponent,
+                 CommentsComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule.forChild(routes)
   ],
-  exports: [ListComponent]
+  exports: [BugsManagementComponent,
+            BugsMaintenanceComponent,
+            RouterModule]
 })
 export class BugsManagementModule { }
