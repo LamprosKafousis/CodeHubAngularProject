@@ -1,7 +1,7 @@
 <table mdbTable>
   <thead>
       <tr>
-          <button *ngFor="let head of headElements" scope="col" (click)="sorting(head)">{{head}} </button>
+          <td *ngFor="let head of headElements" scope="col" (click)="sorting(head)">{{head}} </td>
       </tr>
   </thead>
   <tbody>
@@ -11,6 +11,7 @@
       <td>{{bug.reporter}}</td>
       <td>{{bug.createdAt | date:'shortDate' }}</td>
       <td>{{bug.status}}</td>
+      <td><a><img src="https://cdn3.iconfinder.com/data/icons/text-editing-2/100/Artboard_29-512.png" height="25px"></a></td>
     </tr>
   </tbody>
 </table>

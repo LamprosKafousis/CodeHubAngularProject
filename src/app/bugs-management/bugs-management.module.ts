@@ -13,6 +13,7 @@ import { CommentsComponent } from './bugs-maintenance/comments/comments.componen
   declarations: [BugsManagementComponent, BugsMaintenanceComponent, SearchComponent, ListComponent, MaintainComponent, CommentsComponent],
   imports: [
     CommonModule
-  ]
+  ],
+  exports: [ListComponent]
 })
 export class BugsManagementModule { }

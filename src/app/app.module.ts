@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ListOfBugsModule } from './list-of-bugs/list-of-bugs.module';
+import { BugsManagementModule } from './bugs-management/bugs-management.module';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -13,7 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ListOfBugsModule,
+    BugsManagementModule,
     HttpClientModule
   ],
   providers: [],
