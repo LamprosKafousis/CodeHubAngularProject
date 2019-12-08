@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GetBugsService } from 'src/app/services/get-bugs.service';
+import { GetBugsService } from './../../../services/get-bugs.service';
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
