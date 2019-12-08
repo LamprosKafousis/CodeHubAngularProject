@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { GetBugsService } from 'src/app/services/get-bugs.service';
 @Component({
-  selector: 'app-list-of-bugs',
-  templateUrl: './list-of-bugs.component.html',
-  styleUrls: ['./list-of-bugs.component.scss']
+  selector: 'app-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.scss']
 })
 
-export class ListOfBugsComponent implements OnInit {
+export class ListComponent implements OnInit {
 
   constructor(private getBugsService: GetBugsService) { }
   public bugs: Bug[];
