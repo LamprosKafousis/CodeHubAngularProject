@@ -1,11 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BugsManagementModule } from './bugs-management/bugs-management.module';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { BugsManagementComponent } from './bugs-management/bugs-management/bugs-management.component';//to delete
+import { BugsMaintenanceComponent } from './bugs-management/bugs-maintenance/bugs-maintenance.component';//to delete
+
+const routes: Routes = [
+ { path: '', component: BugsManagementComponent },
+ { path: 'bugs/new', component: BugsMaintenanceComponent }
+];
 
 @NgModule({
   declarations: [
@@ -16,7 +22,8 @@ import { RouterModule } from '@angular/router';
     AppRoutingModule,
     BugsManagementModule,
     HttpClientModule,
-    RouterModule.forRoot([])
+    RouterModule.forChild(routes)
+    // RouterModule.forRoot([])
   ],
   providers: [],
   bootstrap: [AppComponent]

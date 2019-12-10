@@ -7,11 +7,12 @@ import { ListComponent } from './bugs-management/list/list.component';
 import { MaintainComponent } from './bugs-maintenance/maintain/maintain.component';
 import { CommentsComponent } from './bugs-maintenance/comments/comments.component';
 import { RouterModule, Routes } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
-  { path: 'bugs', component: BugsManagementComponent },
+//  { path: 'bugs', component: BugsManagementComponent },
   { path: 'bugs/new', component: BugsMaintenanceComponent }
-];
+ ];
 
 @NgModule({
   declarations: [BugsManagementComponent,
@@ -22,6 +23,7 @@ const routes: Routes = [
                  CommentsComponent],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     RouterModule.forChild(routes)
   ],
   exports: [BugsManagementComponent,
