@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GetBugsService } from './../../../services/get-bugs.service';
+import { BugsList } from 'src/app/app.component';
+
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -9,26 +11,23 @@ import { GetBugsService } from './../../../services/get-bugs.service';
 export class ListComponent implements OnInit {
 
   constructor(private getBugsService: GetBugsService) { }
-  public bugs: Bug[];
+  public bugs: BugsList[];
   headElements = ['title', 'priority', 'reporter', 'createdAt', 'status'];
-  ngOnInit() {
 
-  this.getBugsService.getBugs(null, null, null, null, null, null, null, null).subscribe(
-    (bugs: Bug[]) => {this.bugs = bugs;});
+  ngOnInit() {
+    this.loadList();
+  }
+
+  loadList(){
+    this.getBugsService.getBugs(null, null, null, null, null, null, null, null).subscribe(
+      (bugs: BugsList[]) => {this.bugs = bugs;});
   }
 
   sorting( sortHead: string) {
     this.getBugsService.getBugs(sortHead, null, null, null, null, null, null, null).subscribe(
-      (bugs: Bug[]) => {this.bugs = bugs;});
+      (bugs: BugsList[]) => {this.bugs = bugs;});
   }
 
-}
-interface Bug {
-  title: string;
-  priority: number;
-  reporter: string;
-  createdAt: Date;
-  status: string;
 }
 
 

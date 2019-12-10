@@ -1,1 +1,41 @@
 <p>maintain works!</p>
+
+<form [formGroup]="myForm" (submit)="formSubmit(myForm)">
+  <div>
+    <label>Title:</label>
+    <input formControlName="title" type="text">
+  </div>
+  <div>
+    <label>Description:</label>
+    <input formControlName="description" type="text">
+  </div>
+  <div>
+    <input type="radio" formControlName="priority" value=1>
+    <label for="Minor">Minor</label>
+    <input type="radio" formControlName="priority" value=2>
+    <label for="Major">Major</label>
+    <input type="radio" formControlName="priority" value=3>
+    <label for="Critical">Critical</label>
+  </div>
+  <div>
+    <input type="radio" formControlName="reporter" value="QA">
+    <label for="QA">QA</label>
+    <input type="radio" formControlName="reporter" value="PO">
+    <label for="PO">PO</label>
+    <input type="radio" formControlName="reporter" value="DEV">
+    <label for="DEV">DEV</label>
+  </div>
+  <div>
+    <input type="radio" formControlName="status" value="Ready for test">
+    <label for="Ready for test">Ready for test</label>
+    <input type="radio" formControlName="status" value="Done">
+    <label for="Done">Done</label>
+    <input type="radio" formControlName="status" value="Rejected">
+    <label for="Rejected">Rejected</label>
+  </div>
+  <div>
+    <button type="submit">Submit</button>
+  </div>
+</form>
+
+<a [routerLink] = "['']">Return</a>
