@@ -15,7 +15,8 @@ export class GetBugsService {
     {header: 'reporter' , ordering: true},
     {header: 'createdAt', ordering: true},
     {header: 'status'   , ordering: true}];
-
+  sortHead = 'createdAt';
+  ordering = 'desc';
   getBugs(sort?: string,
           page?: number,
           size?: number,
@@ -25,10 +26,13 @@ export class GetBugsService {
           status?: string,
           createdAt?: Date): Observable<any> {
 
-    let endpoint = 'https://bug-report-system-server.herokuapp.com/bugs?&size=100';
+    let endpoint = 'https://bug-report-system-server.herokuapp.com/bugs?';
 
     if (sort != null) {
-      endpoint += this.getBugsSorting(sort);
+      endpoint += this.getBugsSorting(sort) + '&page=' + 0 ;
+    }
+    else if (page != null) {
+      endpoint += this.getBugsPaging(page);
     }
 
     return this.http.get(endpoint);
@@ -36,9 +40,15 @@ export class GetBugsService {
 
   getBugsSorting(sortHead: string): string {
     const item = this.headers.find(x => x.header === sortHead );
+    this.sortHead = sortHead;
     item.ordering = !item.ordering;
-    const sortOrder = item.ordering ? 'asc' : 'desc';
-    return ('&sort=' + sortHead + ',' +  sortOrder );
+    this.ordering = item.ordering ? 'asc' : 'desc';
+    return ('&sort=' + this.sortHead + ',' +  this.ordering );
   }
+
+  getBugsPaging(page: number): string {
+    return ('&sort=' + this.sortHead + ',' +  this.ordering + '&page=' + page );
+  }
+
 
 }

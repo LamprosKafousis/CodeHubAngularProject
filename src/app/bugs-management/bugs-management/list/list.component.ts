@@ -13,19 +13,27 @@ export class ListComponent implements OnInit {
   constructor(private getBugsService: GetBugsService) { }
   public bugs: BugsList[];
   headElements = ['title', 'priority', 'reporter', 'createdAt', 'status'];
-
+  currentPage = 0;
+  
   ngOnInit() {
     this.loadList();
   }
 
   loadList(){
-    this.getBugsService.getBugs(null, null, null, null, null, null, null, null).subscribe(
-      (bugs: BugsList[]) => {this.bugs = bugs;});
+  this.getBugsService.getBugs('createdAt', 0, null, null, null, null, null, null).subscribe(
+    (bugs: Bug[]) => {this.bugs = bugs;});
   }
 
   sorting( sortHead: string) {
-    this.getBugsService.getBugs(sortHead, null, null, null, null, null, null, null).subscribe(
-      (bugs: BugsList[]) => {this.bugs = bugs;});
+    this.currentPage = 0;
+    this.getBugsService.getBugs(sortHead, 0, null, null, null, null, null, null).subscribe(
+      (bugs: Bug[]) => {this.bugs = bugs;});
+  }
+
+  paging( goTo: string) {
+    this.currentPage = goTo === 'next'? this.currentPage+1 : this.currentPage-1 ;
+    this.getBugsService.getBugs(null, this.currentPage, null, null, null, null, null, null).subscribe(
+      (bugs: Bug[]) => {this.bugs = bugs;});
   }
 
 }
