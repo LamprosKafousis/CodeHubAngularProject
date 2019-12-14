@@ -2,7 +2,7 @@
 <table mdbTable>
   <thead>
       <tr>
-          <td *ngFor="let head of headElements" scope="col" (click)="sorting(head)">{{head}} </td>
+        <td *ngFor="let head of headElements" scope="col" (click)="sorting(head)">{{head}} </td>
       </tr>
   </thead>
   <tbody>
@@ -12,7 +12,12 @@
       <td>{{bug.reporter}}</td>
       <td>{{bug.createdAt | date:'shortDate' }}</td>
       <td>{{bug.status}}</td>
-      <td><a><img src="https://cdn3.iconfinder.com/data/icons/text-editing-2/100/Artboard_29-512.png" height="25px"></a></td>
+      <td>{{bug.id}}</td>
+      <td>{{bug.description}}</td>
+      <td>
+        <a [routerLink] = "['bugs/edit']" [queryParams]="{id: bug.id }"> <i class="fa fa-edit"></i>
+        </a>
+      </td>
     </tr>
   </tbody>
 </table>

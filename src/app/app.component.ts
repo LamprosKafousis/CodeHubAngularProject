@@ -7,25 +7,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 
-
 export class AppComponent {
 }
 
-export interface BugsList {
-  title: string;
-  priority: number;
-  reporter: string;
-  createdAt: Date;
-  status: string;
-}
-
+// export interface BugsList {
+//   title: string;
+//   description: string;
+//   priority: number;
+//   reporter: string;
+//   createdAt: Date;
+//   status: string;
+//   id: string;
+// }
 
 export interface Bug {
   title: string;
   description: string;
   priority: number;
   reporter: string;
-  // createdAt: Date;
+  createdAt: Date;
+  id: string;
   status: string;
   commentsList: Comment[];
 }
