@@ -10,17 +10,17 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent {
 }
 
-export interface BugsList {
-  title: string;
-  description: string;
-  priority: number;
-  reporter: string;
-  createdAt: Date;
-  status: string;
-  id: string;
-}
+// export interface BugsList {
+//   title: string;
+//   description: string;
+//   priority: number;
+//   reporter: string;
+//   createdAt: Date;
+//   status: string;
+//   id: string;
+// }
 
-export interface Bug { // to delete
+export interface Bug {
   title: string;
   description: string;
   priority: number;
@@ -31,7 +31,7 @@ export interface Bug { // to delete
   commentsList: Comment[];
 }
 
-export interface Comment { // implements bug
+export interface Comment {
   id: string;
   reporter: string;
   description: string;

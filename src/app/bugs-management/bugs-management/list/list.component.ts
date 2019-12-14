@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GetBugsService } from './../../../services/get-bugs.service';
-import { BugsList } from 'src/app/app.component';
+import { Bug } from 'src/app/app.component';
 
 @Component({
   selector: 'app-list',
@@ -11,10 +11,10 @@ import { BugsList } from 'src/app/app.component';
 export class ListComponent implements OnInit {
 
   constructor(private getBugsService: GetBugsService) { }
-  public bugs: BugsList[];
+  public bugs: Bug[];
   headElements = ['title', 'priority', 'reporter', 'createdAt', 'status'];
   currentPage = 0;
-  
+
   ngOnInit() {
     this.loadList();
   }
