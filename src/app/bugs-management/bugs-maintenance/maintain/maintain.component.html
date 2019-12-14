@@ -1,6 +1,4 @@
-<p>maintain works!</p>
-
-<form [formGroup]="myForm" (submit)="formSubmit(myForm)">
+<form [formGroup]="maintainForm" (submit)="formSubmit(maintainForm)">
   <div>
     <label>Title:</label>
     <input formControlName="title" type="text">
@@ -10,11 +8,11 @@
     <input formControlName="description" type="text">
   </div>
   <div>
-    <input type="radio" formControlName="priority" value=1>
+    <input type="radio" formControlName="priority" value="3">
     <label for="Minor">Minor</label>
-    <input type="radio" formControlName="priority" value=2>
+    <input type="radio" formControlName="priority" value="2">
     <label for="Major">Major</label>
-    <input type="radio" formControlName="priority" value=3>
+    <input type="radio" formControlName="priority" value="1">
     <label for="Critical">Critical</label>
   </div>
   <div>
@@ -37,5 +35,3 @@
     <button type="submit">Submit</button>
   </div>
 </form>
-
-<a [routerLink] = "['']">Return</a>
