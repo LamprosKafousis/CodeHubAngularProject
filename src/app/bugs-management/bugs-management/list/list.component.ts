@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GetBugsService } from './../../../services/get-bugs.service';
 import { Bug } from 'src/app/app.component';
+import { DeleteBugsService } from 'src/app/services/delete-bugs.service';
 
 @Component({
   selector: 'app-list',
@@ -10,7 +11,7 @@ import { Bug } from 'src/app/app.component';
 
 export class ListComponent implements OnInit {
 
-  constructor(private getBugsService: GetBugsService) { }
+  constructor(private getBugsService: GetBugsService, private deleteBugsService: DeleteBugsService) { }
   public bugs: Bug[];
   headElements = ['title', 'priority', 'reporter', 'createdAt', 'status'];
   currentPage = 0;
@@ -36,6 +37,10 @@ export class ListComponent implements OnInit {
       (bugs: Bug[]) => {this.bugs = bugs;});
   }
 
+  delete( bugId: string) {
+    this.deleteBugsService.deleteBugs(bugId).subscribe();
+    this.loadList();
+  }
 }
 
 
