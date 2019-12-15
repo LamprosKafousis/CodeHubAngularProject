@@ -15,8 +15,10 @@
       <td>{{bug.id}}</td>
       <td>{{bug.description}}</td>
       <td>
-        <a [routerLink] = "['bugs/edit']" [queryParams]="{id: bug.id }"> <i class="fa fa-edit"></i>
-        </a>
+        <a [routerLink] = "['bugs/edit']" [queryParams]="{id: bug.id }"> <i class="fa fa-edit"></i></a>
+      </td>
+      <td (click)="delete(bug.id)">
+          <i class="fa fa-trash-alt"></i>
       </td>
     </tr>
   </tbody>

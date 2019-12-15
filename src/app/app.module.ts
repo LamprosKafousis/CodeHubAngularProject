@@ -6,9 +6,7 @@ import { BugsManagementModule } from './bugs-management/bugs-management.module';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { BugsManagementComponent } from './bugs-management/bugs-management/bugs-management.component';//to delete
-import { BugsMaintenanceComponent } from './bugs-management/bugs-maintenance/bugs-maintenance.component';//to delete
-// import { AngularFontAwesomeModule } from 'angular-font-awesome';
-//import { AngularFontAwesomeModule } from '@fortawesome/fontawesome-free';
+import { BugsMaintenanceComponent } from './bugs-management/bugs-maintenance/bugs-maintenance.component';//to deletecd
 
 const routes: Routes = [
  { path: '', component: BugsManagementComponent },
@@ -25,7 +23,6 @@ const routes: Routes = [
     AppRoutingModule,
     BugsManagementModule,
     HttpClientModule,
-    //AngularFontAwesomeModule,
     RouterModule.forChild(routes)
     // RouterModule.forRoot([])
   ],
