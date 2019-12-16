@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GetBugsService } from './../../../services/get-bugs.service';
 import { Bug } from 'src/app/app.component';
-import { HttpClient } from '@angular/common/http';
+import { DeleteBugsService } from 'src/app/services/delete-bugs.service';
 
 @Component({
   selector: 'app-list',
@@ -11,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
 
 export class ListComponent implements OnInit {
 
-  constructor(private getBugsService: GetBugsService, private http: HttpClient) { }
+  constructor(private getBugsService: GetBugsService, private deleteBugsService: DeleteBugsService) { }
   public bugs: Bug[];
   headElements = ['title', 'priority', 'reporter', 'createdAt', 'status'];
   currentPage = 0;
@@ -42,6 +42,10 @@ totalPages;
       res => { this.bugs = res.body as Bug[];
         this.totalPages = res.headers.get('Totalpages');})}
 
+  delete( bugId: string) {
+    this.deleteBugsService.deleteBugs(bugId).subscribe();
+    this.loadList();
+  }
 }
 
 
