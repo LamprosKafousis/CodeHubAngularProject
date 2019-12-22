@@ -35,7 +35,7 @@ export class GetBugsService {
       endpoint += this.getBugsPaging(page);
     }
 
-    return this.http.get(endpoint);
+    return this.http.get(endpoint, {observe: 'response'});
   }
 
   getBugsSorting(sortHead: string): string {

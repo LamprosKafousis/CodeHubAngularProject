@@ -27,5 +27,5 @@
 <!-- <router-outlet></router-outlet> -->
 
 <button (click) = "paging('previous')" [disabled]="currentPage<1"> <img src="https://image.flaticon.com/icons/svg/14/14926.svg" height="10px" ></button>
-{{currentPage}}
-<button (click) = "paging('next')"><img src="https://image.flaticon.com/icons/svg/32/32213.svg" height="10px"></button>
+{{currentPage+1}}
+<button (click) = "paging('next')" [disabled]="currentPage+1==totalPages"><img src="https://image.flaticon.com/icons/svg/32/32213.svg" height="10px"></button>
