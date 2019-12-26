@@ -35,6 +35,21 @@ export class GetBugsService {
       endpoint += this.getBugsPaging(page);
     }
 
+    if (title!=null) {
+      endpoint += '&title=' + title;
+    }
+    if (priority!=null) {
+      endpoint += '&priority=' + priority;
+    }
+
+    if (reporter!=null) {
+      endpoint += '&reporter=' + reporter;
+    }
+
+    if (status!=null){
+    endpoint += '&status=' + status;
+    }
+    console.log(endpoint);
     return this.http.get(endpoint, {observe: 'response'});
   }
 
