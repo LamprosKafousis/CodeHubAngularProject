@@ -33,7 +33,7 @@ export class ListComponent implements OnInit {
   }
 
   loadList() {
-    this.getBugsService.getBugs('createdAt', 0, null, null, null, null, null, null)
+    this.getBugsService.getBugs(null, 0, null, null, null, null, null, null)
     .subscribe( res => this.getBugsList(res)); }
 
   sorting( sortHead: string) {
@@ -66,6 +66,16 @@ export class ListComponent implements OnInit {
   getBugsList( res ) {
     this.bugs = res.body as Bug[];
     this.totalPages = res.headers.get('Totalpages');
+  }
+
+  deleteFilters() {
+    const {title, priority, reporter, status} = this.searchForm.controls;
+    title.setValue(null);
+    priority.setValue(null);
+    reporter.setValue(null);
+    status.setValue(null);
+    this.currentPage = 0 ;
+    this.loadList();
   }
 
   search() {
