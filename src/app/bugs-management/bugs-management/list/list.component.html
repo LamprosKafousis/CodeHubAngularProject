@@ -28,7 +28,9 @@
     <button type="submit">Search</button>
   </div>
 </form>
-
+<div>
+<button (click) = "deleteFilters()">Delete all filters</button>
+</div>
 <a [routerLink] = "['bugs/new']">Report New Bug</a>
 <table mdbTable>
   <thead>

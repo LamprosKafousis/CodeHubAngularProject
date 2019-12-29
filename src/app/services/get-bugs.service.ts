@@ -13,7 +13,7 @@ export class GetBugsService {
     {header: 'title'    , ordering: true},
     {header: 'priority' , ordering: true},
     {header: 'reporter' , ordering: true},
-    {header: 'createdAt', ordering: true},
+    {header: 'createdAt', ordering: false},
     {header: 'status'   , ordering: true}];
   sortHead = 'createdAt';
   ordering = 'desc';
