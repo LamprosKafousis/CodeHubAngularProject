@@ -6,7 +6,9 @@ import { BugsManagementModule } from './bugs-management/bugs-management.module';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { BugsManagementComponent } from './bugs-management/bugs-management/bugs-management.component';//to delete
-import { BugsMaintenanceComponent } from './bugs-management/bugs-maintenance/bugs-maintenance.component';//to deletecd
+import { BugsMaintenanceComponent } from './bugs-management/bugs-maintenance/bugs-maintenance.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';//to deletecd
+import { AngularMaterialModule } from './angular-material.module';
 
 const routes: Routes = [
  { path: '', component: BugsManagementComponent },
@@ -23,7 +25,9 @@ const routes: Routes = [
     AppRoutingModule,
     BugsManagementModule,
     HttpClientModule,
-    RouterModule.forChild(routes)
+    AngularMaterialModule,
+    RouterModule.forChild(routes),
+    BrowserAnimationsModule
     // RouterModule.forRoot([])
   ],
   providers: [],
