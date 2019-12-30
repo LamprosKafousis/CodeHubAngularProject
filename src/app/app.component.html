@@ -1,1 +1,11 @@
-<router-outlet></router-outlet>
+<mat-toolbar class="nav-bar" color="primary">
+  <h1>{{ title }}</h1>
+</mat-toolbar>
+
+<div class="content-wrapper">
+  <router-outlet></router-outlet>
+</div>
+
+<mat-toolbar class="foot-bar" color="primary">
+  <p>{{ footer }}</p>
+</mat-toolbar>
