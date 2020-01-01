@@ -8,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class AppComponent {
+  title = "Bugs Management Application";
+  footer = "Created by Team A"
 }
 
 export interface Bug {

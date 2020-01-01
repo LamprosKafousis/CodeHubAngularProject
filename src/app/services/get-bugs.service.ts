@@ -13,7 +13,7 @@ export class GetBugsService {
     {header: 'title'    , ordering: true},
     {header: 'priority' , ordering: true},
     {header: 'reporter' , ordering: true},
-    {header: 'createdAt', ordering: true},
+    {header: 'createdAt', ordering: false},
     {header: 'status'   , ordering: true}];
   sortHead = 'createdAt';
   ordering = 'desc';
@@ -30,7 +30,9 @@ export class GetBugsService {
 
     if (sort != null) {
       endpoint += this.getBugsSorting(sort) + '&page=' + 0 ;
+      this.sortHead = sort;
     }
+
     else if (page != null) {
       endpoint += this.getBugsPaging(page);
     }
@@ -45,7 +47,6 @@ export class GetBugsService {
     if (reporter!=null) {
       endpoint += '&reporter=' + reporter;
     }
-
     if (status!=null){
     endpoint += '&status=' + status;
     }
