@@ -12,16 +12,6 @@ export class AppComponent {
   footer = "Created by Team A"
 }
 
-// export interface BugsList {
-//   title: string;
-//   description: string;
-//   priority: number;
-//   reporter: string;
-//   createdAt: Date;
-//   status: string;
-//   id: string;
-// }
-
 export interface Bug {
   title: string;
   description: string;
@@ -30,7 +20,7 @@ export interface Bug {
   createdAt: Date;
   id: string;
   status: string;
-  commentsList: Comment[];
+  comments: Comment[];
 }
 
 export interface Comment {

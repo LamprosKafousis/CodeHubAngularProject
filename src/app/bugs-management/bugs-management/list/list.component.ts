@@ -22,6 +22,7 @@ export class ListComponent implements OnInit {
   reporters = ['QA', 'PO', 'DEV'];
   statuses = ['Ready for test', 'Done', 'Rejected'];
   sortHead;
+
   ngOnInit() {
     this.loadList();
     this.searchForm = new FormGroup({
