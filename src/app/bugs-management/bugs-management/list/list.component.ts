@@ -15,9 +15,9 @@ export class ListComponent implements OnInit {
   public bugs: Bug[];
   headElements = ['title', 'priority', 'reporter', 'createdAt', 'status'];
   currentPage = 0;
-res;
-totalPages;
-//headers: Headers;
+  res;
+  totalPages;
+// headers: Headers;
   ngOnInit() {
     this.loadList();
   }

@@ -34,13 +34,31 @@
   <div>
     <button type="submit">Submit</button>
   </div>
-  <div>
-    <label>Reporter Name:</label>
-    <input formArrayName="commentsList" *ngFor = "let comment of ">
-    <button type="submit">Submit</button>
+  <div (click) = "addComments(true)">
+       Add New comment <i class="far fa-plus-square"></i>
   </div>
+  <ol> Comments
+    <div *ngFor="let commentGroup of getControls(maintainForm, 'comments')">
+      <div [formGroup]="commentGroup">
+        <li>
+          <div>
+            <label>Reporter:</label>
+            <input type="radio" formControlName="reporter" value="QA">
+            <label for="QA">QA</label>
+            <input type="radio" formControlName="reporter" value="PO">
+            <label for="PO">PO</label>
+            <input type="radio" formControlName="reporter" value="DEV">
+            <label for="DEV">DEV</label>
+          </div>
+          <div>
+            <label>Description:</label>
+            <textarea formControlName="description" style="resize:none" rows = "5" cols = "50" name = "description">
+            Enter your name
+            </textarea>
+          </div>
+        </li>
+      </div>
+    </div>
+  </ol>
+
 </form>
-
-
-<!--<textarea rows="4" cols="50" name="comment" form="commentform">
-  Enter text here...</textarea>-->

@@ -5,7 +5,6 @@ import { BugsMaintenanceComponent } from './bugs-maintenance/bugs-maintenance.co
 import { SearchComponent } from './bugs-management/search/search.component';
 import { ListComponent } from './bugs-management/list/list.component';
 import { MaintainComponent } from './bugs-maintenance/maintain/maintain.component';
-import { CommentsComponent } from './bugs-maintenance/comments/comments.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -19,8 +18,7 @@ const routes: Routes = [
                  BugsMaintenanceComponent,
                  SearchComponent,
                  ListComponent,
-                 MaintainComponent,
-                 CommentsComponent],
+                 MaintainComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
