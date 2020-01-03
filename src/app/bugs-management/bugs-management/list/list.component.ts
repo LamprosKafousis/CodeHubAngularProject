@@ -27,6 +27,10 @@ export class ListComponent implements OnInit {
   reporters = ['QA', 'PO', 'DEV'];
   statuses = ['Ready for test', 'Done', 'Rejected'];
   sortHead;
+  title;
+  priority;
+  reporter;
+  status;
 
   ngOnInit() {
     this.loadList();
@@ -50,20 +54,20 @@ export class ListComponent implements OnInit {
     this.currentPage = 0 ;
     //this.getBugsService.getBugs(sortHead, 0, null,
     this.getBugsService.getBugs(event.active, 0, null,
-      this.searchForm.controls['title'].value,
-      this.searchForm.controls['priority'].value,
-      this.searchForm.controls['reporter'].value,
-      this.searchForm.controls['status'].value,
+      this.title,
+      this.priority,
+      this.reporter,
+      this.status,
       null)
     .subscribe(  res => this.getBugsList(res)); }
 
   paging( goTo: string) {
     this.currentPage = goTo === 'next' ? this.currentPage + 1 : this.currentPage - 1 ;
     this.getBugsService.getBugs(null, this.currentPage, null,
-    this.searchForm.controls['title'].value,
-    this.searchForm.controls['priority'].value,
-    this.searchForm.controls['reporter'].value,
-    this.searchForm.controls['status'].value,
+    this.title,
+    this.priority,
+    this.reporter,
+    this.status,
     null)
     .subscribe( res => this.getBugsList(res)); }
 
@@ -95,11 +99,15 @@ export class ListComponent implements OnInit {
   search() {
     console.log("Searchhhhh");
     this.currentPage = 0 ;
+    this.title = this.searchForm.controls['title'].value;
+    this.priority = this.searchForm.controls['priority'].value;
+    this.reporter = this.searchForm.controls['reporter'].value;
+    this.status =  this.searchForm.controls['status'].value;
     this.getBugsService.getBugs(null, 0, null,
-      this.searchForm.controls['title'].value,
-      this.searchForm.controls['priority'].value,
-      this.searchForm.controls['reporter'].value,
-      this.searchForm.controls['status'].value,
+      this.title,
+      this.priority,
+      this.reporter,
+     this.status,
        null)
     .subscribe( res => {
       this.getBugsList(res);});
