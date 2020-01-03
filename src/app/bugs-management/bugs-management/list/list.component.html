@@ -1,38 +1,148 @@
 <form [formGroup]="searchForm" (submit)="search(searchForm)">
-  <div>
-    <label>Title:</label>
-    <input formControlName="title" type="text">
+  <div >
+    <!-- <label>Title:</label> -->
+    <!-- <input formControlName="title" type="text"> -->
 
+    <mat-form-field class="title-width" >
+        <input matInput formControlName="title" placeholder="Title">
+      </mat-form-field>
+<!--
     <select formControlName="priority">
       <option [ngValue]="null">Select</option>
       <option *ngFor="let priority of priorities">
         {{priority}}
       </option>
-    </select>
+    </select> -->
 
-    <select formControlName="reporter">
+    <mat-form-field class="priority-width" >
+        <mat-label>Priority</mat-label>
+        <mat-select formControlName="priority">
+          <mat-option *ngFor="let priority of priorities" [value]="priority">
+            {{priority}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+    <!-- <select formControlName="reporter">
       <option [ngValue]="null">Select</option>
       <option *ngFor="let reporter of reporters">
         {{reporter}}
       </option>
-    </select>
+    </select> -->
+
+    <mat-form-field class="reporter-width">
+        <mat-label>Reporter</mat-label>
+        <mat-select formControlName="reporter">
+          <mat-option *ngFor="let reporter of reporters" [value]="reporter">
+            {{reporter}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
 
-    <select formControlName="status">
+    <!-- <select formControlName="status">
       <option [ngValue]="null">Select</option>
       <option *ngFor="let status of statuses">
         {{status}}
       </option>
-    </select>
+    </select> -->
 
-    <button type="submit">Search</button>
+    <mat-form-field class="status-width">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+          <mat-option *ngFor="let status of statuses" [value]="status">
+            {{status}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    <button mat-raised-button color="primary" class = "button-search" type="submit">Search</button>
+    <button mat-raised-button color="primary" class = "button-clear" (click)="deleteFilters()">Clear</button>
   </div>
 </form>
-<div>
-<button (click) = "deleteFilters()">Delete all filters</button>
+<!-- <div>
+    <button (click)="deleteFilters()">Delete all filters</button>
+</div> -->
+<!-- <a [routerLink]="['bugs/new']">Report New Bug</a> -->
+  <button mat-icon-button class = "new-post-button" [routerLink]="['bugs/new']">
+    <mat-icon>add</mat-icon>
+  </button>
+
+
+<div class="example-table-container">
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" (matSortChange)="sorting($event)">
+
+    <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- title Column -->
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
+      <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+    </ng-container>
+
+    <!-- priority Column -->
+    <ng-container matColumnDef="priority">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Priority </th>
+      <td mat-cell *matCellDef="let element"> {{element.priority}} </td>
+    </ng-container>
+
+    <!-- reporter Column -->
+    <ng-container matColumnDef="reporter">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Reporter </th>
+      <td mat-cell *matCellDef="let element"> {{element.reporter}} </td>
+    </ng-container>
+
+    <!-- createdAt Column -->
+    <ng-container matColumnDef="createdAt">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> CreatedAt </th>
+      <td mat-cell *matCellDef="let element"> {{element.createdAt}} </td>
+    </ng-container>
+
+    <!-- status Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+      <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+    </ng-container>
+
+    <!-- edit Column -->
+    <ng-container matColumnDef="edit_action">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element" [routerLink]="['bugs/edit']" [queryParams]="{id: element.id }"> <i
+          class="fa fa-edit fa-edit-yellow"></i>
+      </td>
+    </ng-container>
+
+
+    <!-- trash Column -->
+    <ng-container matColumnDef="delete_action">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element" (click)="delete(element.id)"> <i class="fa fa-trash-alt fa-trash-red"></i>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <!-- Paging -->
+  <div class="custom-pagination">
+    <div class = "left">
+      <button mat-icon-button (click) = "paging('previous')" [disabled]="currentPage<1">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+      </button>
+    </div>
+    <div class = "page">{{currentPage+1}}</div>
+    <div class = "right" >
+      <button mat-icon-button (click) = "paging('next')" [disabled]="currentPage+1==totalPages">
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </button>
+    </div>
+  </div>
 </div>
-<a [routerLink] = "['bugs/new']">Report New Bug</a>
-<table mdbTable>
+
+<!-- <table mdbTable>
   <thead>
       <tr>
         <td *ngFor="let head of headElements" scope="col" (click)="sorting(head)">{{head}} </td>
@@ -58,10 +168,11 @@
       </td>
     </tr>
   </tbody>
-</table>
+</table> -->
 
 <!-- <router-outlet></router-outlet> -->
 
-<button (click) = "paging('previous')" [disabled]="currentPage<1"> <img src="https://image.flaticon.com/icons/svg/14/14926.svg" height="10px" ></button>
+<!-- <button (click) = "paging('previous')" [disabled]="currentPage<1"> <img src="https://image.flaticon.com/icons/svg/14/14926.svg" height="10px" ></button>
 {{currentPage+1}}
 <button (click) = "paging('next')" [disabled]="currentPage+1==totalPages"><img src="https://image.flaticon.com/icons/svg/32/32213.svg" height="10px"></button>
+ -->
