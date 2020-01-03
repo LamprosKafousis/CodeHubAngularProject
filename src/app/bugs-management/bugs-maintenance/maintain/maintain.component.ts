@@ -18,8 +18,9 @@ export class MaintainComponent implements OnInit {
   maintainForm: FormGroup;
   bugId: string;
   retrievedBug: Bug;
-  executionMode =  0; // 1 = edit bug, 0 = new bug
+  executionMode =  0; // 0 = new bug, 1 = edit bug, 2 = new comment
   newComment = false;
+  commentsMode = false;
 
   constructor(private postBugsService: PostBugsService,
               private getBugsByIdService: GetBugsByIdService,
@@ -45,7 +46,13 @@ export class MaintainComponent implements OnInit {
 
     this.bugId = this.getParamValueQueryString('id');
     if (this.bugId) {
-      this.executionMode = 1;
+      if (this.router.url.includes('bugs/comments/new')) {
+        this.executionMode = 2;
+        this.commentsMode = true;
+      } else{
+        this.executionMode = 1;
+      }
+
       this.getBugsByIdService.getBugsById(this.bugId).subscribe((bug: Bug) =>
       {
         this.retrievedBug = bug;
@@ -77,7 +84,7 @@ export class MaintainComponent implements OnInit {
 
   addComments(addbuttonPressed: boolean, commentReporter?: string, commentDescription?: string) {
     console.log('RetrieveExistingComments');
-    const commentsArray = (this.maintainForm.controls.comments as FormArray);
+    //const commentsArray = (this.maintainForm.controls.comments as FormArray);
 
     if (addbuttonPressed) {
       let newCommentsgroup: FormGroup = this.formBuilder.group({
@@ -85,24 +92,65 @@ export class MaintainComponent implements OnInit {
         description: ['Enter your comment here!', null]
       });
 
-      commentsArray.insert(0, newCommentsgroup);
+      //commentsArray.insert(0, newCommentsgroup);
+      (this.maintainForm.controls.comments as FormArray).insert(0, newCommentsgroup);
     } else {
       let newCommentsgroup: FormGroup = this.formBuilder.group({
-        reporter: [commentReporter, null], //reporter: [{value: commentReporter, disabled: true}, null]
-        description: [commentDescription, null] //description: [{value: commentDescription, disabled: true}, null]
+        //reporter: [commentReporter, null],
+        reporter: [{value: commentReporter, disabled: true}, null],
+        //description: [commentDescription, null]
+        description: [{value: commentDescription, disabled: true}, null]
       });
-      commentsArray.push(newCommentsgroup);
+      //commentsArray.push(newCommentsgroup);
+      (this.maintainForm.controls.comments as FormArray).push(newCommentsgroup);
+      //const {reporter, description} = newCommentsgroup.controls;
+      //reporter.enable();
+      //description.enable();
+      //reporter.setValue('DEV');
+      //description.setValue('Enter your comment here!');
     }
   }
 
-  formSubmit() {
-    const actionToInvoke = this.executionMode === 1
-    ? this.putBugsService.putBugs(this.maintainForm.value)
-    : this.postBugsService.postBugs(this.maintainForm.value);
+  // formSubmit() {
+  //   const actionToInvoke = this.executionMode === 1
+  //   ? this.putBugsService.putBugs(this.maintainForm.getRawValue())
+  //   : this.postBugsService.postBugs(this.maintainForm.getRawValue());
 
-    actionToInvoke.pipe(
-      tap(() => this.router.navigate(['']))
-    ).subscribe();
+  //   actionToInvoke.pipe(
+  //     tap(() => this.router.navigate(['']))
+  //   ).subscribe();
+  // }
+
+
+  formSubmit() {
+  // actionToInvoke.pipe(
+  //   tap(() => this.router.navigate(['']))
+  // ).subscribe();
+  if (this.executionMode === 0) {
+    this.postBugsService.postBugs(this.maintainForm.getRawValue()).pipe(
+        tap(() => this.router.navigate(['']))
+      ).subscribe();
+  }
+
+  if (this.executionMode === 1) {
+    this.putBugsService.putBugs(this.maintainForm.getRawValue()).pipe(
+          tap(() => this.router.navigate(['']))
+        ).subscribe();
+  }
+
+  if (this.executionMode === 2) {
+    this.putBugsService.putBugs(this.maintainForm.getRawValue()).subscribe();
+  //disable all comments
+    this.disableInputs();
+  }
+  }
+
+  disableInputs() {
+    (this.maintainForm.get('comments') as FormArray)
+      .controls
+      .forEach(control => {
+        control.disable();
+      });
   }
 
   getParamValueQueryString( paramName: string ) {

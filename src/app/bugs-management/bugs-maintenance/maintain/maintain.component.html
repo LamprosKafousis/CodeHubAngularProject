@@ -31,13 +31,19 @@
     <input type="radio" formControlName="status" value="Rejected">
     <label for="Rejected">Rejected</label>
   </div>
-  <div>
-    <button type="submit">Submit</button>
+  <div *ngIf="!commentsMode">
+    <div>
+      <button type="submit">Submit Bug</button>
+    </div>
   </div>
+  <div *ngIf="commentsMode"><br>
   <div (click) = "addComments(true)">
-       Add New comment <i class="far fa-plus-square"></i>
+       Add New Comment <i class="far fa-plus-square"></i>
+  </div><br>
+  <div>
+    <button type="submit">Submit New Comments</button>
   </div>
-  <ol> Comments
+  <ol> Comment List
     <div *ngFor="let commentGroup of getControls(maintainForm, 'comments')">
       <div [formGroup]="commentGroup">
         <li>
@@ -60,5 +66,6 @@
       </div>
     </div>
   </ol>
+</div>
 
 </form>

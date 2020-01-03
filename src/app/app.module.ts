@@ -13,7 +13,8 @@ import { AngularMaterialModule } from './angular-material.module';
 const routes: Routes = [
  { path: '', component: BugsManagementComponent },
  { path: 'bugs/new', component: BugsMaintenanceComponent },
- { path: 'bugs/edit', component: BugsMaintenanceComponent }
+ { path: 'bugs/edit', component: BugsMaintenanceComponent },
+ { path: 'bugs/comments/new', component: BugsMaintenanceComponent }
 ];
 
 @NgModule({
