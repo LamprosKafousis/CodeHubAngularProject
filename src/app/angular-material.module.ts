@@ -21,7 +21,8 @@ import {
    MatTooltipModule,
    MatTableModule,
    MatProgressSpinnerModule,
-   MatPaginatorModule
+   MatPaginatorModule,
+   MatSortModule
 } from '@angular/material';
 
 @NgModule({
@@ -46,7 +47,8 @@ import {
       MatTooltipModule,
       MatTableModule,
       MatProgressSpinnerModule,
-      MatPaginatorModule
+      MatPaginatorModule,
+      MatSortModule
    ],
    exports: [
       MatButtonModule,
@@ -67,7 +69,8 @@ import {
       MatTooltipModule,
       MatTableModule,
       MatProgressSpinnerModule,
-      MatPaginatorModule
+      MatPaginatorModule,
+      MatSortModule
    ],
    providers: [
       MatDatepickerModule,

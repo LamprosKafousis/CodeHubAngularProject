@@ -6,6 +6,8 @@ import { ListComponent } from './bugs-management/list/list.component';
 import { MaintainComponent } from './bugs-maintenance/maintain/maintain.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AngularMaterialModule } from '../angular-material.module';
+import { MatSortModule } from '@angular/material';
 
 const routes: Routes = [
 //  { path: 'bugs', component: BugsManagementComponent },
@@ -20,10 +22,13 @@ const routes: Routes = [
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    AngularMaterialModule,
+    MatSortModule,
     RouterModule.forChild(routes)
   ],
   exports: [BugsManagementComponent,
             BugsMaintenanceComponent,
+            MatSortModule,
             RouterModule]
 })
 export class BugsManagementModule { }
