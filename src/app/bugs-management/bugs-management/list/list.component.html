@@ -109,16 +109,32 @@
     <!-- edit Column -->
     <ng-container matColumnDef="edit_action">
       <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let element" [routerLink]="['bugs/edit']" [queryParams]="{id: element.id }"> <i
+      <td mat-cell
+        matTooltip="Edit Comment"
+        matTooltipPosition="above"
+        *matCellDef="let element" [routerLink]="['bugs/edit']" [queryParams]="{id: element.id }"> <i
           class="fa fa-edit fa-edit-yellow"></i>
       </td>
     </ng-container>
 
+    <!-- comment Column -->
+    <ng-container matColumnDef="comment_action">
+      <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell
+          matTooltip="Add New Comment"
+          matTooltipPosition="above"
+          *matCellDef="let element" [routerLink]="['bugs/comments/new']" [queryParams]="{id: element.id }"> <i
+            class="fa fa-comment-medical fa-comment-medical-green"></i>
+        </td>
+    </ng-container>
 
     <!-- trash Column -->
     <ng-container matColumnDef="delete_action">
       <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let element" (click)="delete(element.id)"> <i class="fa fa-trash-alt fa-trash-red"></i>
+      <td mat-cell
+        matTooltip="Delete Comment"
+        matTooltipPosition="above"
+        *matCellDef="let element" (click)="delete(element.id)"> <i class="fa fa-trash-alt fa-trash-red"></i>
       </td>
     </ng-container>
 

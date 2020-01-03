@@ -17,7 +17,7 @@ export class ListComponent implements OnInit {
   sort: MatSort;
   //dataSource: Bug;
   dataSource: MatTableDataSource<Bug>;
-  displayedColumns: string[] = ['title', 'priority', 'reporter', 'createdAt', 'status', 'edit_action','delete_action' ];
+  displayedColumns: string[] = ['title', 'priority', 'reporter', 'createdAt', 'status', 'edit_action', 'comment_action', 'delete_action' ];
   headElements = ['title', 'priority', 'reporter', 'createdAt', 'status'];
   currentPage = 0;
   res;

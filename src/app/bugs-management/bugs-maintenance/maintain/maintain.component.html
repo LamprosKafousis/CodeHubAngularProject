@@ -43,7 +43,7 @@
   <div>
     <button type="submit">Submit New Comments</button>
   </div>
-  <ol> Comment List
+  <ol> Comments List
     <div *ngFor="let commentGroup of getControls(maintainForm, 'comments')">
       <div [formGroup]="commentGroup">
         <li>
