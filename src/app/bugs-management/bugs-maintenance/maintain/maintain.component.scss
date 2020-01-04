@@ -1,0 +1,67 @@
+.form-title{
+  margin-right: 15px;
+  margin-bottom: 15px;
+}
+.radio-group-priority {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
+
+.radio-button-priority {
+  margin: 5px;
+  font-size: 15px;
+}
+
+.group-reporter {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.radio-button-reporter {
+  margin: 5px;
+  font-size: 15px;
+}
+
+
+.group-priority {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.radio-button-priority {
+  margin: 5px;
+  font-size: 15px;
+}
+
+.group-status {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.radio-button-status {
+  margin: 5px;
+}
+
+.button-submit {
+  color: white;
+  background-color: indigo;
+}
+
+.label-priority{
+  color: indigo;
+  font-size: 15px;
+}
+
+.label-status{
+  color: indigo;
+  font-size: 15px;
+}
+
+.label-reporter{
+  color: indigo;
+  font-size: 15px;
+}

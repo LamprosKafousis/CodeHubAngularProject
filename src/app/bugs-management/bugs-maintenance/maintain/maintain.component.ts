@@ -18,15 +18,20 @@ export class MaintainComponent implements OnInit {
   maintainForm: FormGroup;
   bugId: string;
   retrievedBug: Bug;
-  executionMode =  0; // 0 = new bug, 1 = edit bug, 2 = new comment
+  executionMode = 0; // 0 = new bug, 1 = edit bug, 2 = new comment
   newComment = false;
   commentsMode = false;
+  reporters = ["QA", "PO", "DEV"];
+  statuses = ["Ready for test", "Done", "Rejected"];
+  status;
+  reporter;
+  priority;
 
   constructor(private postBugsService: PostBugsService,
-              private getBugsByIdService: GetBugsByIdService,
-              private putBugsService: PutBugsService,
-              private router: Router,
-              private formBuilder: FormBuilder) { }
+    private getBugsByIdService: GetBugsByIdService,
+    private putBugsService: PutBugsService,
+    private router: Router,
+    private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.maintainForm = this.formBuilder.group({
@@ -37,10 +42,10 @@ export class MaintainComponent implements OnInit {
       status: new FormControl('', Validators.required),
       id: new FormControl('', Validators.required),
       comments: this.formBuilder.array([
-      this.formBuilder.group({
-         reporter: ['DEV', null],
-         description: ['Enter your comment here!', null]
-       })
+        this.formBuilder.group({
+          reporter: ['DEV', null],
+          description: ['Enter your comment here!', null]
+        })
       ])
     });
 
@@ -49,12 +54,11 @@ export class MaintainComponent implements OnInit {
       if (this.router.url.includes('bugs/comments/new')) {
         this.executionMode = 2;
         this.commentsMode = true;
-      } else{
+      } else {
         this.executionMode = 1;
       }
 
-      this.getBugsByIdService.getBugsById(this.bugId).subscribe((bug: Bug) =>
-      {
+      this.getBugsByIdService.getBugsById(this.bugId).subscribe((bug: Bug) => {
         this.retrievedBug = bug;
         this.fillEditBugForm(this.retrievedBug);
       });
@@ -66,7 +70,7 @@ export class MaintainComponent implements OnInit {
   }
 
   fillEditBugForm(retrievedBug: Bug) {
-    const {title, description, priority, reporter, status, id} = this.maintainForm.controls;
+    const { title, description, priority, reporter, status, id } = this.maintainForm.controls;
 
     //console.log(retrievedBug);
     title.setValue(retrievedBug.title);
@@ -75,9 +79,9 @@ export class MaintainComponent implements OnInit {
     reporter.setValue(retrievedBug.reporter);
     status.setValue(retrievedBug.status);
     id.setValue(retrievedBug.id);
-    if (retrievedBug.comments != null){
+    if (retrievedBug.comments != null) {
       retrievedBug.comments.forEach((item) => {
-       this.addComments(false, item.reporter, item.description);
+        this.addComments(false, item.reporter, item.description);
       });
     }
   }
@@ -97,9 +101,9 @@ export class MaintainComponent implements OnInit {
     } else {
       let newCommentsgroup: FormGroup = this.formBuilder.group({
         //reporter: [commentReporter, null],
-        reporter: [{value: commentReporter, disabled: true}, null],
+        reporter: [{ value: commentReporter, disabled: true }, null],
         //description: [commentDescription, null]
-        description: [{value: commentDescription, disabled: true}, null]
+        description: [{ value: commentDescription, disabled: true }, null]
       });
       //commentsArray.push(newCommentsgroup);
       (this.maintainForm.controls.comments as FormArray).push(newCommentsgroup);
@@ -123,26 +127,26 @@ export class MaintainComponent implements OnInit {
 
 
   formSubmit() {
-  // actionToInvoke.pipe(
-  //   tap(() => this.router.navigate(['']))
-  // ).subscribe();
-  if (this.executionMode === 0) {
-    this.postBugsService.postBugs(this.maintainForm.getRawValue()).pipe(
+    // actionToInvoke.pipe(
+    //   tap(() => this.router.navigate(['']))
+    // ).subscribe();
+    if (this.executionMode === 0) {
+      this.postBugsService.postBugs(this.maintainForm.getRawValue()).pipe(
         tap(() => this.router.navigate(['']))
       ).subscribe();
-  }
+    }
 
-  if (this.executionMode === 1) {
-    this.putBugsService.putBugs(this.maintainForm.getRawValue()).pipe(
-          tap(() => this.router.navigate(['']))
-        ).subscribe();
-  }
+    if (this.executionMode === 1) {
+      this.putBugsService.putBugs(this.maintainForm.getRawValue()).pipe(
+        tap(() => this.router.navigate(['']))
+      ).subscribe();
+    }
 
-  if (this.executionMode === 2) {
-    this.putBugsService.putBugs(this.maintainForm.getRawValue()).subscribe();
-  //disable all comments
-    this.disableInputs();
-  }
+    if (this.executionMode === 2) {
+      this.putBugsService.putBugs(this.maintainForm.getRawValue()).subscribe();
+      //disable all comments
+      this.disableInputs();
+    }
   }
 
   disableInputs() {
@@ -153,7 +157,7 @@ export class MaintainComponent implements OnInit {
       });
   }
 
-  getParamValueQueryString( paramName: string ) {
+  getParamValueQueryString(paramName: string) {
     const url = window.location.href;
     let paramValue;
     if (url.includes('?')) {
