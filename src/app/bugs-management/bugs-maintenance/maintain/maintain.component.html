@@ -1,21 +1,58 @@
 <form [formGroup]="maintainForm" (submit)="formSubmit(maintainForm)">
   <div>
-    <label>Title:</label>
-    <input formControlName="title" type="text">
+    <mat-form-field appearance="outline" class= form-title>
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" placeholder="Title">
+      <mat-hint>Enter your bug title</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Description</mat-label>
+      <input matInput formControlName="description" placeholder="Description">
+      <mat-hint>Enter your bug description</mat-hint>
+    </mat-form-field>
   </div>
-  <div>
-    <label>Description:</label>
-    <input formControlName="description" type="text">
+
+  <label class="label-priority">Select Priority</label>
+  <div class="group-priority">
+    <mat-radio-group aria-labelledby="radio-group-priority" formControlName="priority">
+      <mat-radio-button class="radio-button-priority" value="3"> <label for="Minor">Minor</label>
+      </mat-radio-button>
+      <mat-radio-button class="radio-button-priority" value="2"> <label for="Major">Major</label>
+      </mat-radio-button>
+      <mat-radio-button class="radio-button-priority" value="1"> <label for="Critical">Critical</label>
+      </mat-radio-button>
+    </mat-radio-group>
   </div>
-  <div>
+
+  <label class="label-reporter">Select Reporter</label>
+  <div class="group-reporter">
+    <mat-radio-group aria-labelledby="radio-group-reporter" formControlName="reporter">
+      <mat-radio-button class="radio-button-reporter" *ngFor="let reporter of reporters" [value]="reporter">
+        {{reporter}}
+      </mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+  <label class="label-status">Select Status</label>
+  <div class="group-status">
+    <mat-radio-group aria-labelledby="radio-group-status" formControlName="status">
+      <mat-radio-button class="radio-button-status" *ngFor="let status of statuses" [value]="status">
+        {{status}}
+      </mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+
+  <!-- <div>
     <input type="radio" formControlName="priority" value="3">
     <label for="Minor">Minor</label>
     <input type="radio" formControlName="priority" value="2">
     <label for="Major">Major</label>
     <input type="radio" formControlName="priority" value="1">
     <label for="Critical">Critical</label>
-  </div>
-  <div>
+  </div> -->
+  <!-- <div>
     <input type="radio" formControlName="reporter" value="QA">
     <label for="QA">QA</label>
     <input type="radio" formControlName="reporter" value="PO">
@@ -30,42 +67,44 @@
     <label for="Done">Done</label>
     <input type="radio" formControlName="status" value="Rejected">
     <label for="Rejected">Rejected</label>
-  </div>
+  </div> -->
+
   <div *ngIf="!commentsMode">
     <div>
-      <button type="submit">Submit Bug</button>
+      <!-- <button type="submit">Submit Bug</button> -->
+      <button mat-raised-button color="primary" class="button-submit">Submit</button>
     </div>
   </div>
   <div *ngIf="commentsMode"><br>
-  <div (click) = "addComments(true)">
-       Add New Comment <i class="far fa-plus-square"></i>
-  </div><br>
-  <div>
-    <button type="submit">Submit New Comments</button>
-  </div>
-  <ol> Comments List
-    <div *ngFor="let commentGroup of getControls(maintainForm, 'comments')">
-      <div [formGroup]="commentGroup">
-        <li>
-          <div>
-            <label>Reporter:</label>
-            <input type="radio" formControlName="reporter" value="QA">
-            <label for="QA">QA</label>
-            <input type="radio" formControlName="reporter" value="PO">
-            <label for="PO">PO</label>
-            <input type="radio" formControlName="reporter" value="DEV">
-            <label for="DEV">DEV</label>
-          </div>
-          <div>
-            <label>Description:</label>
-            <textarea formControlName="description" style="resize:none" rows = "5" cols = "50" name = "description">
+    <div (click)="addComments(true)">
+      Add New Comment <i class="far fa-plus-square"></i>
+    </div><br>
+    <div>
+      <button type="submit">Submit New Comments</button>
+    </div>
+    <ol> Comments List
+      <div *ngFor="let commentGroup of getControls(maintainForm, 'comments')">
+        <div [formGroup]="commentGroup">
+          <li>
+            <div>
+              <label>Reporter:</label>
+              <input type="radio" formControlName="reporter" value="QA">
+              <label for="QA">QA</label>
+              <input type="radio" formControlName="reporter" value="PO">
+              <label for="PO">PO</label>
+              <input type="radio" formControlName="reporter" value="DEV">
+              <label for="DEV">DEV</label>
+            </div>
+            <div>
+              <label>Description:</label>
+              <textarea formControlName="description" style="resize:none" rows="5" cols="50" name="description">
             Enter your name
             </textarea>
-          </div>
-        </li>
+            </div>
+          </li>
+        </div>
       </div>
-    </div>
-  </ol>
-</div>
+    </ol>
+  </div>
 
 </form>

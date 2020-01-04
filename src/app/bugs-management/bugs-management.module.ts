@@ -5,7 +5,7 @@ import { BugsMaintenanceComponent } from './bugs-maintenance/bugs-maintenance.co
 import { ListComponent } from './bugs-management/list/list.component';
 import { MaintainComponent } from './bugs-maintenance/maintain/maintain.component';
 import { RouterModule, Routes } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AngularMaterialModule } from '../angular-material.module';
 import { MatSortModule } from '@angular/material';
 
@@ -22,6 +22,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    FormsModule,
     AngularMaterialModule,
     MatSortModule,
     RouterModule.forChild(routes)
@@ -29,6 +30,7 @@ const routes: Routes = [
   exports: [BugsManagementComponent,
             BugsMaintenanceComponent,
             MatSortModule,
+            FormsModule,
             RouterModule]
 })
 export class BugsManagementModule { }
