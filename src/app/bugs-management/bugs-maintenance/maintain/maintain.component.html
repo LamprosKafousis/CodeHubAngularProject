@@ -17,7 +17,7 @@
 
     <label class="label-priority">Select Priority</label>
     <div class="group-priority">
-      <mat-radio-group aria-labelledby="radio-group-priority" formControlName="priority">
+      <mat-radio-group aria-labelledby="radio-group-priority" formControlName="priority" required>
         <mat-radio-button class="radio-button-priority" value="3"> <label for="Minor">Minor</label>
         </mat-radio-button>
         <mat-radio-button class="radio-button-priority" value="2"> <label for="Major">Major</label>
@@ -29,7 +29,7 @@
 
     <label class="label-reporter">Select Reporter</label>
     <div class="group-reporter">
-      <mat-radio-group aria-labelledby="radio-group-reporter" formControlName="reporter">
+      <mat-radio-group aria-labelledby="radio-group-reporter" formControlName="reporter" required>
         <mat-radio-button class="radio-button-reporter" *ngFor="let reporter of reporters" [value]="reporter">
           {{reporter}}
         </mat-radio-button>
@@ -38,7 +38,7 @@
 
     <label class="label-status">Select Status</label>
     <div class="group-status">
-      <mat-radio-group aria-labelledby="radio-group-status" formControlName="status">
+      <mat-radio-group aria-labelledby="radio-group-status" formControlName="status" required>
         <mat-radio-button class="radio-button-status" *ngFor="let status of statuses" [value]="status">
           {{status}}
         </mat-radio-button>
@@ -46,7 +46,9 @@
     </div>
     <div *ngIf="!commentsMode">
       <div>
-        <button mat-raised-button color="primary" class="button-submit">Submit</button>
+        <button mat-raised-button color="primary"
+                class="button-submit"
+                [disabled] = "(this.submitBugAlreadyPressed || !this.maintainForm.valid  || !this.maintainForm.dirty)">Submit</button>
       </div>
     </div>
   </div>
@@ -63,7 +65,7 @@
         <div [formGroup]="commentGroup">
           <div class="mat-list-reporter">
             <label class="mat-subheader">Reporter:</label>
-            <mat-radio-group aria-labelledby="radio-group-reporter" formControlName="reporter">
+            <mat-radio-group aria-labelledby="radio-group-reporter" formControlName="reporter" required>
               <mat-radio-button class="radio-button-reporter" *ngFor="let reporter of reporters" [value]="reporter">
                 {{reporter}}
               </mat-radio-button>
@@ -71,14 +73,17 @@
           </div>
           <div class="mat-list-comments">
             <mat-form-field class="mat-list-text-area">
-              <textarea matInput formControlName="description" placeholder="Description"></textarea>
+              <textarea matInput formControlName="description" placeholder="Description" required></textarea>
             </mat-form-field>
           </div>
         </div>
-        <div *ngIf="!commentGroup.disabled">
-          <button mat-raised-button color="primary" class="button-submit float-right">Submit</button>
-        </div>
+
       </div>
+    </div>
+    <div *ngIf="!maintainForm.controls.comments.disabled">
+      <button mat-raised-button color="primary"
+              class="button-submit float-right"
+              [disabled] = "(!this.maintainForm.valid  || !this.maintainForm.dirty)">Submit</button>
     </div>
   </div>
 </form>

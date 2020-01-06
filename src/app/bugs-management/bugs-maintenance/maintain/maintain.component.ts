@@ -15,7 +15,6 @@ import { ExecutionMode } from '../../../common/common.enum';
   styleUrls: ['./maintain.component.scss']
 })
 
-
 export class MaintainComponent implements OnInit {
   maintainForm: FormGroup;
   bugId: string;
@@ -25,6 +24,7 @@ export class MaintainComponent implements OnInit {
   commentsMode = false;
   reporters = ['QA', 'PO', 'DEV'];
   statuses = ['Ready for test', 'Done', 'Rejected'];
+  submitBugAlreadyPressed = false;
   status;
   reporter;
   priority;
@@ -68,18 +68,18 @@ export class MaintainComponent implements OnInit {
         priority: new FormControl('', Validators.required),
         reporter: new FormControl('', Validators.required),
         status: new FormControl('', Validators.required),
-        id: new FormControl('', Validators.required),
+        id: new FormControl('', null),
       });
       break;
      }
      default: { // ExecutionMode.Newcomment
       this.maintainForm = this.formBuilder.group({
-        title: new FormControl({ value: '', disabled: true }, Validators.required),
-        description: new FormControl({ value: '', disabled: true }, Validators.required),
-        priority: new FormControl({ value: '', disabled: true }, Validators.required),
-        reporter: new FormControl({ value: '', disabled: true }, Validators.required),
-        status: new FormControl({ value: '', disabled: true }, Validators.required),
-        id: new FormControl({ value: '', disabled: true }, Validators.required),
+        title: new FormControl({ value: '', disabled: true }, null),
+        description: new FormControl({ value: '', disabled: true }, null),
+        priority: new FormControl({ value: '', disabled: true }, null),
+        reporter: new FormControl({ value: '', disabled: true }, null),
+        status: new FormControl({ value: '', disabled: true }, null),
+        id: new FormControl({ value: '', disabled: true }, null),
         comments: this.formBuilder.array([
           this.formBuilder.group({
             reporter: ['DEV', null],
@@ -89,8 +89,8 @@ export class MaintainComponent implements OnInit {
       });
       break;
      }
+    }
   }
-}
 
   getControls(frmGrp: FormGroup, key: string) {
     return (frmGrp.controls[key] as FormArray).controls;
@@ -117,8 +117,8 @@ export class MaintainComponent implements OnInit {
 
     if (addbuttonPressed) {
       let newCommentsgroup: FormGroup = this.formBuilder.group({
-        reporter: ['DEV', null],
-        description: ['Enter your comment here!', null]
+        reporter: ['DEV', Validators.required],
+        description: ['Enter your comment here!', Validators.required]
       });
 
       (this.maintainForm.controls.comments as FormArray).insert(0, newCommentsgroup);
@@ -138,24 +138,26 @@ export class MaintainComponent implements OnInit {
       this.postBugsService.postBugs(this.maintainForm.getRawValue())
       .pipe(tap(() => this.router.navigate([''])))
       .subscribe();
+      this.submitBugAlreadyPressed = true;
      break;
     }
    case ExecutionMode.EditBug: {
       this.putBugsService.putBugs(this.maintainForm.getRawValue())
       .pipe(tap(() => this.router.navigate([''])))
       .subscribe();
+      this.submitBugAlreadyPressed = true;
     break;
    }
    default: { // ExecutionMode.Newcomment
       this.putBugsService.putBugs(this.maintainForm.getRawValue())
       .subscribe();
-      this.disableInputs();
+      this.disableCommentInputs();
       break;
    }
   }
   }
 
-  disableInputs() {
+  disableCommentInputs() {
     (this.maintainForm.get('comments') as FormArray)
       .controls
       .forEach(control => {
