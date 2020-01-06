@@ -5,65 +5,92 @@ import { Bug } from './../../../app.component';
 import { HttpParams } from '@angular/common/http';
 import { GetBugsByIdService } from 'src/app/services/get-bugs-by-id.service';
 import { PutBugsService } from 'src/app/services/put-bugs.service';
-import { identifierModuleUrl } from '@angular/compiler';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { ExecutionMode } from '../../../common/common.enum';
 
 @Component({
   selector: 'app-maintain',
   templateUrl: './maintain.component.html',
   styleUrls: ['./maintain.component.scss']
 })
+
+
 export class MaintainComponent implements OnInit {
   maintainForm: FormGroup;
   bugId: string;
   retrievedBug: Bug;
-  executionMode = 0; // 0 = new bug, 1 = edit bug, 2 = new comment
+  executionMode = ExecutionMode.NewBug;
   newComment = false;
   commentsMode = false;
-  reporters = ["QA", "PO", "DEV"];
-  statuses = ["Ready for test", "Done", "Rejected"];
+  reporters = ['QA', 'PO', 'DEV'];
+  statuses = ['Ready for test', 'Done', 'Rejected'];
   status;
   reporter;
   priority;
 
   constructor(private postBugsService: PostBugsService,
-    private getBugsByIdService: GetBugsByIdService,
-    private putBugsService: PutBugsService,
-    private router: Router,
-    private formBuilder: FormBuilder) { }
+              private getBugsByIdService: GetBugsByIdService,
+              private putBugsService: PutBugsService,
+              private router: Router,
+              private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    this.maintainForm = this.formBuilder.group({
-      title: new FormControl('', Validators.required),
-      description: new FormControl('', Validators.required),
-      priority: new FormControl('', Validators.required),
-      reporter: new FormControl('', Validators.required),
-      status: new FormControl('', Validators.required),
-      id: new FormControl('', Validators.required),
-      comments: this.formBuilder.array([
-        this.formBuilder.group({
-          reporter: ['DEV', null],
-          description: ['Enter your comment here!', null]
-        })
-      ])
-    });
 
     this.bugId = this.getParamValueQueryString('id');
     if (this.bugId) {
       if (this.router.url.includes('bugs/comments/new')) {
-        this.executionMode = 2;
+        this.executionMode = ExecutionMode.NewComment;
         this.commentsMode = true;
+        this.initializeForm();
       } else {
-        this.executionMode = 1;
+        this.executionMode = ExecutionMode.EditBug;
+        this.initializeForm();
       }
 
       this.getBugsByIdService.getBugsById(this.bugId).subscribe((bug: Bug) => {
         this.retrievedBug = bug;
         this.fillEditBugForm(this.retrievedBug);
       });
+    } else {
+      this.initializeForm();
     }
   }
+
+  initializeForm() {
+
+    switch (this.executionMode) {
+     case ExecutionMode.NewBug:
+     case ExecutionMode.EditBug: {
+      this.maintainForm = this.formBuilder.group({
+        title: new FormControl('', Validators.required),
+        description: new FormControl('', Validators.required),
+        priority: new FormControl('', Validators.required),
+        reporter: new FormControl('', Validators.required),
+        status: new FormControl('', Validators.required),
+        id: new FormControl('', Validators.required),
+      });
+      break;
+     }
+     default: { // ExecutionMode.Newcomment
+      this.maintainForm = this.formBuilder.group({
+        title: new FormControl({ value: '', disabled: true }, Validators.required),
+        description: new FormControl({ value: '', disabled: true }, Validators.required),
+        priority: new FormControl({ value: '', disabled: true }, Validators.required),
+        reporter: new FormControl({ value: '', disabled: true }, Validators.required),
+        status: new FormControl({ value: '', disabled: true }, Validators.required),
+        id: new FormControl({ value: '', disabled: true }, Validators.required),
+        comments: this.formBuilder.array([
+          this.formBuilder.group({
+            reporter: ['DEV', null],
+            description: ['Enter your comment here!', null]
+          })
+        ])
+      });
+      break;
+     }
+  }
+}
 
   getControls(frmGrp: FormGroup, key: string) {
     return (frmGrp.controls[key] as FormArray).controls;
@@ -72,7 +99,7 @@ export class MaintainComponent implements OnInit {
   fillEditBugForm(retrievedBug: Bug) {
     const { title, description, priority, reporter, status, id } = this.maintainForm.controls;
 
-    //console.log(retrievedBug);
+    // console.log(retrievedBug);
     title.setValue(retrievedBug.title);
     description.setValue(retrievedBug.description);
     priority.setValue(String(retrievedBug.priority));
@@ -87,8 +114,6 @@ export class MaintainComponent implements OnInit {
   }
 
   addComments(addbuttonPressed: boolean, commentReporter?: string, commentDescription?: string) {
-    console.log('RetrieveExistingComments');
-    //const commentsArray = (this.maintainForm.controls.comments as FormArray);
 
     if (addbuttonPressed) {
       let newCommentsgroup: FormGroup = this.formBuilder.group({
@@ -96,57 +121,38 @@ export class MaintainComponent implements OnInit {
         description: ['Enter your comment here!', null]
       });
 
-      //commentsArray.insert(0, newCommentsgroup);
       (this.maintainForm.controls.comments as FormArray).insert(0, newCommentsgroup);
     } else {
       let newCommentsgroup: FormGroup = this.formBuilder.group({
-        //reporter: [commentReporter, null],
         reporter: [{ value: commentReporter, disabled: true }, null],
-        //description: [commentDescription, null]
         description: [{ value: commentDescription, disabled: true }, null]
       });
-      //commentsArray.push(newCommentsgroup);
       (this.maintainForm.controls.comments as FormArray).push(newCommentsgroup);
-      //const {reporter, description} = newCommentsgroup.controls;
-      //reporter.enable();
-      //description.enable();
-      //reporter.setValue('DEV');
-      //description.setValue('Enter your comment here!');
     }
   }
 
-  // formSubmit() {
-  //   const actionToInvoke = this.executionMode === 1
-  //   ? this.putBugsService.putBugs(this.maintainForm.getRawValue())
-  //   : this.postBugsService.postBugs(this.maintainForm.getRawValue());
-
-  //   actionToInvoke.pipe(
-  //     tap(() => this.router.navigate(['']))
-  //   ).subscribe();
-  // }
-
-
   formSubmit() {
-    // actionToInvoke.pipe(
-    //   tap(() => this.router.navigate(['']))
-    // ).subscribe();
-    if (this.executionMode === 0) {
-      this.postBugsService.postBugs(this.maintainForm.getRawValue()).pipe(
-        tap(() => this.router.navigate(['']))
-      ).subscribe();
-    }
 
-    if (this.executionMode === 1) {
-      this.putBugsService.putBugs(this.maintainForm.getRawValue()).pipe(
-        tap(() => this.router.navigate(['']))
-      ).subscribe();
+  switch (this.executionMode) {
+    case ExecutionMode.NewBug: {
+      this.postBugsService.postBugs(this.maintainForm.getRawValue())
+      .pipe(tap(() => this.router.navigate([''])))
+      .subscribe();
+     break;
     }
-
-    if (this.executionMode === 2) {
-      this.putBugsService.putBugs(this.maintainForm.getRawValue()).subscribe();
-      //disable all comments
+   case ExecutionMode.EditBug: {
+      this.putBugsService.putBugs(this.maintainForm.getRawValue())
+      .pipe(tap(() => this.router.navigate([''])))
+      .subscribe();
+    break;
+   }
+   default: { // ExecutionMode.Newcomment
+      this.putBugsService.putBugs(this.maintainForm.getRawValue())
+      .subscribe();
       this.disableInputs();
-    }
+      break;
+   }
+  }
   }
 
   disableInputs() {
