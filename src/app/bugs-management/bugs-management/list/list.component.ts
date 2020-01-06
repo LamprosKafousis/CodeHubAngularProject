@@ -23,7 +23,7 @@ export class ListComponent implements OnInit {
   res;
   totalPages;
   searchForm: FormGroup;
-  priorities = [1,2,3];
+  priorities = [1, 2, 3];
   reporters = ['QA', 'PO', 'DEV'];
   statuses = ['Ready for test', 'Done', 'Rejected'];
   sortHead;
@@ -44,7 +44,10 @@ export class ListComponent implements OnInit {
   }
 
   loadList() {
-    this.getBugsService.getBugs(null, 0, null, null, null, null, null, null)
+    this.getBugsService.getBugs(null, this.currentPage, null, this.title,
+      this.priority,
+      this.reporter,
+     this.status, null)
     .subscribe( res => this.getBugsList(res)); }
 
   //sorting( sortHead: string) {
@@ -63,13 +66,7 @@ export class ListComponent implements OnInit {
 
   paging( goTo: string) {
     this.currentPage = goTo === 'next' ? this.currentPage + 1 : this.currentPage - 1 ;
-    this.getBugsService.getBugs(null, this.currentPage, null,
-    this.title,
-    this.priority,
-    this.reporter,
-    this.status,
-    null)
-    .subscribe( res => this.getBugsList(res)); }
+    this.loadList(); }
 
   delete( bugId: string) {
     if ( confirm('Are you sure to delete bug with id: ' + bugId)) {
@@ -83,7 +80,6 @@ export class ListComponent implements OnInit {
     this.totalPages = res.headers.get('Totalpages');
     this.dataSource = new MatTableDataSource(res.body);
     this.dataSource.sort = this.sort;
-
   }
 
   deleteFilters() {
@@ -103,16 +99,7 @@ export class ListComponent implements OnInit {
     this.priority = this.searchForm.controls['priority'].value;
     this.reporter = this.searchForm.controls['reporter'].value;
     this.status =  this.searchForm.controls['status'].value;
-    this.getBugsService.getBugs(null, 0, null,
-      this.title,
-      this.priority,
-      this.reporter,
-     this.status,
-       null)
-    .subscribe( res => {
-      this.getBugsList(res);});
-      console.log(this.searchForm.controls['priority'].value);
-      console.log( this.searchForm.controls['title'].value);
+    this.loadList();
     }
 
 
