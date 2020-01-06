@@ -65,3 +65,48 @@
   color: indigo;
   font-size: 15px;
 }
+
+.mat-subheader{
+  color: indigo;
+}
+
+.mat-list-reporter{
+ width:100%;
+ display:block;
+}
+
+.mat-list-comments{
+  width:100%;
+  display:block;
+}
+
+.mat-list-text-area{
+   width:100%;
+  // width: 800px;
+}
+
+.mat-comments{
+  width:100%;
+  margin-top: 5px;
+  margin-bottom:5px;
+  padding: 20px;
+}
+
+.mat-submit{
+  padding: 20px;
+  width:100%;
+}
+
+.float-right{
+  right: 0;
+}
+
+.button-block{
+  width:100%;
+  padding-top: 20px;
+  height: 20px;
+  button{
+    position: relative;
+    float: right;
+  }
+}
