@@ -99,7 +99,6 @@ export class MaintainComponent implements OnInit {
   fillEditBugForm(retrievedBug: Bug) {
     const { title, description, priority, reporter, status, id } = this.maintainForm.controls;
 
-    // console.log(retrievedBug);
     title.setValue(retrievedBug.title);
     description.setValue(retrievedBug.description);
     priority.setValue(String(retrievedBug.priority));
