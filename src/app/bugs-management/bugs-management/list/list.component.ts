@@ -70,8 +70,8 @@ export class ListComponent implements OnInit {
 
   delete( bugId: string) {
     if ( confirm('Are you sure to delete bug with id: ' + bugId)) {
-    this.deleteBugsService.deleteBugs(bugId).subscribe();
-    this.loadList(); }
+    this.deleteBugsService.deleteBugs(bugId).subscribe( () => this.loadList());
+    }
   }
 
   getBugsList( res ) {
