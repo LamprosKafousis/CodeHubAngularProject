@@ -110,7 +110,7 @@
     <ng-container matColumnDef="edit_action">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell
-        matTooltip="Edit Comment"
+        matTooltip="Edit Bug"
         matTooltipPosition="above"
         *matCellDef="let element" [routerLink]="['bugs/edit']" [queryParams]="{id: element.id }"> <i
           class="fa fa-edit fa-edit-yellow"></i>
@@ -132,7 +132,7 @@
     <ng-container matColumnDef="delete_action">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell
-        matTooltip="Delete Comment"
+        matTooltip="Delete Bug"
         matTooltipPosition="above"
         *matCellDef="let element" (click)="delete(element.id)"> <i class="fa fa-trash-alt fa-trash-red"></i>
       </td>
@@ -151,7 +151,7 @@
     </div>
     <div class = "page">{{currentPage+1}}</div>
     <div class = "right" >
-      <button mat-icon-button (click) = "paging('next')" [disabled]="currentPage+1==totalPages">
+      <button mat-icon-button (click) = "paging('next')" [disabled]="currentPage+1>=totalPages">
         <mat-icon>keyboard_arrow_right</mat-icon>
       </button>
     </div>
