@@ -38,7 +38,7 @@
 
     <label class="label-status">Select Status</label>
     <div class="group-status">
-      <mat-radio-group aria-labelledby="radio-group-status" formControlName="status" required>
+      <mat-radio-group aria-labelledby="radio-group-status" formControlName="status">
         <mat-radio-button class="radio-button-status" *ngFor="let status of statuses" [value]="status">
           {{status}}
         </mat-radio-button>

@@ -55,12 +55,33 @@ export class MaintainComponent implements OnInit {
     } else {
       this.initializeForm();
     }
-  }
+
+    this.maintainForm.controls.reporter.valueChanges.subscribe( (value: string) => {
+      if (value === 'QA') {
+        this.maintainForm.controls.status.setValidators(Validators.required);
+      } else {
+        this.maintainForm.controls.status.clearValidators(); }
+      this.maintainForm.controls.status.updateValueAndValidity() ; });
+}
 
   initializeForm() {
 
     switch (this.executionMode) {
-     case ExecutionMode.NewBug:
+     case ExecutionMode.NewBug: {
+      this.maintainForm = this.formBuilder.group({
+        title: new FormControl('', Validators.required),
+        description: new FormControl('', Validators.required),
+        priority: new FormControl('', Validators.required),
+        reporter: new FormControl('', Validators.required),
+        status: new FormControl('', null),
+        id: new FormControl('', null),
+      });
+      console.log(this.maintainForm.get('reporter').value);
+      if (this.maintainForm.get('reporter').value === 'QA')
+      {this.maintainForm.get('status').setValidators(Validators.required);}
+       else {this.maintainForm.get('status').clearValidators();}
+       this.maintainForm.get('status').updateValueAndValidity();
+       break;}
      case ExecutionMode.EditBug: {
       this.maintainForm = this.formBuilder.group({
         title: new FormControl('', Validators.required),
