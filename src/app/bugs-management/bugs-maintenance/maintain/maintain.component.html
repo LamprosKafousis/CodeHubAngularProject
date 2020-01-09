@@ -64,12 +64,16 @@
       <div class="mat-comments mat-elevation-z4" *ngFor="let commentGroup of getControls(maintainForm, 'comments')">
         <div [formGroup]="commentGroup">
           <div class="mat-list-reporter">
-            <label class="mat-subheader">Reporter:</label>
+            <!--<label class="mat-subheader">Reporter:</label>
             <mat-radio-group aria-labelledby="radio-group-reporter" formControlName="reporter" required>
               <mat-radio-button class="radio-button-reporter" *ngFor="let reporter of reporters" [value]="reporter">
                 {{reporter}}
               </mat-radio-button>
-            </mat-radio-group>
+            </mat-radio-group>-->
+            <mat-form-field appearance="standard">
+              <mat-label>Reporter Name</mat-label>
+              <input matInput formControlName="reporter" required>
+            </mat-form-field>
           </div>
           <div class="mat-list-comments">
             <mat-form-field class="mat-list-text-area">
@@ -85,4 +89,7 @@
               [disabled] = "(!this.maintainForm.valid  || !this.maintainForm.dirty)">Submit</button>
     </div>
   </div>
+  <button mat-icon-button class = "back-button" [routerLink]="['']">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
 </form>
