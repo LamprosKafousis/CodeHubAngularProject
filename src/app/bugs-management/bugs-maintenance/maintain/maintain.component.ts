@@ -78,10 +78,15 @@ export class MaintainComponent implements OnInit {
       });
       console.log(this.maintainForm.get('reporter').value);
       if (this.maintainForm.get('reporter').value === 'QA')
-      {this.maintainForm.get('status').setValidators(Validators.required);}
-       else {this.maintainForm.get('status').clearValidators();}
-       this.maintainForm.get('status').updateValueAndValidity();
-       break;}
+      {
+        this.maintainForm.get('status').setValidators(Validators.required);
+      }
+       else {
+         this.maintainForm.get('status').clearValidators();
+      }
+      this.maintainForm.get('status').updateValueAndValidity();
+      break;
+     }
      case ExecutionMode.EditBug: {
       this.maintainForm = this.formBuilder.group({
         title: new FormControl('', Validators.required),
@@ -103,7 +108,7 @@ export class MaintainComponent implements OnInit {
         id: new FormControl({ value: '', disabled: true }, null),
         comments: this.formBuilder.array([
           this.formBuilder.group({
-            reporter: ['DEV', null],
+            reporter: ['Unknown DEV', null],
             description: ['Enter your comment here!', null]
           })
         ])
@@ -137,10 +142,9 @@ export class MaintainComponent implements OnInit {
 
     if (addbuttonPressed) {
       let newCommentsgroup: FormGroup = this.formBuilder.group({
-        reporter: ['DEV', Validators.required],
+        reporter: ['Unknown DEV', Validators.required],
         description: ['Enter your comment here!', Validators.required]
       });
-
       (this.maintainForm.controls.comments as FormArray).insert(0, newCommentsgroup);
     } else {
       let newCommentsgroup: FormGroup = this.formBuilder.group({
