@@ -43,14 +43,13 @@ export class GetBugsService {
     if (priority!=null) {
       endpoint += '&priority=' + priority;
     }
-
     if (reporter!=null) {
       endpoint += '&reporter=' + reporter;
     }
     if (status!=null){
     endpoint += '&status=' + status;
     }
-    console.log(endpoint);
+
     return this.http.get(endpoint, {observe: 'response'});
   }
 
@@ -65,6 +64,5 @@ export class GetBugsService {
   getBugsPaging(page: number): string {
     return ('&sort=' + this.sortHead + ',' +  this.ordering + '&page=' + page );
   }
-
 
 }

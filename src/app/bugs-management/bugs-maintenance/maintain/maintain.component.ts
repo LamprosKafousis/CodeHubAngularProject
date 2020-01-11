@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { PostBugsService } from './../../../services/post-bugs.service';
 import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
-import { Bug } from './../../../app.component';
+//import { Bug } from './../../../app.component';
 import { HttpParams } from '@angular/common/http';
 import { GetBugsByIdService } from 'src/app/services/get-bugs-by-id.service';
 import { PutBugsService } from 'src/app/services/put-bugs.service';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ExecutionMode } from '../../../common/common.enum';
+import { Bug } from '../../../common/common';
+
 
 @Component({
   selector: 'app-maintain',

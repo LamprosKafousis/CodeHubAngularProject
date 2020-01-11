@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { GetBugsService } from './../../../services/get-bugs.service';
-import { Bug } from 'src/app/app.component';
 import { DeleteBugsService } from 'src/app/services/delete-bugs.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatSort, MatTableDataSource } from '@angular/material';
+import { Bug } from 'src/app/common/common';
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -14,6 +14,7 @@ export class ListComponent implements OnInit {
 
   constructor(private getBugsService: GetBugsService, private deleteBugsService: DeleteBugsService) { }
   sort: MatSort = new MatSort();
+
   dataSource: MatTableDataSource<Bug>;
   displayedColumns: string[] = ['title', 'priority', 'reporter', 'createdAt', 'status', 'edit_action', 'comment_action', 'delete_action' ];
   headElements = ['title', 'priority', 'reporter', 'createdAt', 'status'];
@@ -49,6 +50,7 @@ export class ListComponent implements OnInit {
     .subscribe( res => this.getBugsList(res)); }
 
   sorting( event: any) {
+
     this.sortHead = event.active + ',' + event.direction;
     this.currentPage = 0 ;
     this.getBugsService.getBugs(event.active, 0, null,
@@ -94,6 +96,5 @@ export class ListComponent implements OnInit {
     this.status =  this.searchForm.controls['status'].value;
     this.loadList();
     }
-
 
   }
