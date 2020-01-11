@@ -1,6 +1,16 @@
-export class CommonStructures {
+export interface Bug {
+  title: string;
+  description: string;
+  priority: number;
+  reporter: string;
+  createdAt: Date;
+  id: string;
+  status: string;
+  comments: Comment[];
+}
 
-  constructor() { }
-
-
+export interface Comment {
+  id: string;
+  reporter: string;
+  description: string;
 }

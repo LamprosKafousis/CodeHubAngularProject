@@ -10,7 +10,6 @@ import { AngularMaterialModule } from '../angular-material.module';
 import { MatSortModule } from '@angular/material';
 
 const routes: Routes = [
-//  { path: 'bugs', component: BugsManagementComponent },
   { path: 'bugs/new', component: BugsMaintenanceComponent }
  ];
 
