@@ -4,6 +4,7 @@
         <input matInput formControlName="title" placeholder="Title">
       </mat-form-field>
     <mat-form-field class="priority-width" >
+
         <mat-label>Priority</mat-label>
         <mat-select formControlName="priority">
           <mat-option *ngFor="let priority of priorities" [value]="priority">
@@ -11,6 +12,7 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+
     <mat-form-field class="reporter-width">
         <mat-label>Reporter</mat-label>
         <mat-select formControlName="reporter">
@@ -19,6 +21,7 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+
     <mat-form-field class="status-width">
         <mat-label>Status</mat-label>
         <mat-select formControlName="status">

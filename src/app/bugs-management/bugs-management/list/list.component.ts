@@ -13,7 +13,8 @@ import { Bug } from 'src/app/common/common';
 export class ListComponent implements OnInit {
 
   constructor(private getBugsService: GetBugsService, private deleteBugsService: DeleteBugsService) { }
-  sort: MatSort;
+  sort: MatSort = new MatSort();
+
   dataSource: MatTableDataSource<Bug>;
   displayedColumns: string[] = ['title', 'priority', 'reporter', 'createdAt', 'status', 'edit_action', 'comment_action', 'delete_action' ];
   headElements = ['title', 'priority', 'reporter', 'createdAt', 'status'];
@@ -24,7 +25,7 @@ export class ListComponent implements OnInit {
   priorities = [1, 2, 3];
   reporters = ['QA', 'PO', 'DEV'];
   statuses = ['Ready for test', 'Done', 'Rejected'];
-  sortHead;
+  sortHead: string;
   title;
   priority;
   reporter;
@@ -49,7 +50,8 @@ export class ListComponent implements OnInit {
     .subscribe( res => this.getBugsList(res)); }
 
   sorting( event: any) {
-    this.sortHead = event.active;
+
+    this.sortHead = event.active + ',' + event.direction;
     this.currentPage = 0 ;
     this.getBugsService.getBugs(event.active, 0, null,
       this.title,
@@ -73,6 +75,7 @@ export class ListComponent implements OnInit {
     this.totalPages = res.headers.get('Totalpages');
     this.dataSource = new MatTableDataSource(res.body);
     this.dataSource.sort = this.sort;
+    this.sort.disableClear = true;
   }
 
   deleteFilters() {

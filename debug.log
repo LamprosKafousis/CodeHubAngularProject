@@ -166,3 +166,6 @@
 [1229/012841.491:ERROR:process_memory_win.cc(73)] ReadMemory at 0x77dbb76c of 32 bytes failed: Only part of a ReadProcessMemory or WriteProcessMemory request was completed. (0x12B)
 [1229/012841.491:ERROR:process_memory_win.cc(73)] ReadMemory at 0x77dbdca0 of 36 bytes failed: Only part of a ReadProcessMemory or WriteProcessMemory request was completed. (0x12B)
 [1229/012841.493:ERROR:scoped_process_suspend.cc(40)] NtResumeProcess: An attempt was made to access an exiting process. (0xc000010a)
+[0108/121851.118:ERROR:file_io_win.cc(161)] CreateFile C:\Users\OURANI~1.MIT\AppData\Local\Temp\karma-18452688\Crashpad\settings.dat: The system cannot find the path specified. (0x3)
+[0108/121851.165:ERROR:file_io_win.cc(170)] CreateFile C:\Users\OURANI~1.MIT\AppData\Local\Temp\karma-18452688\Crashpad\reports\b99a5c83-bc75-471d-809a-15d78f78ac01.dmp: The system cannot find the path specified. (0x3)
+[0108/121851.165:ERROR:crash_report_exception_handler.cc(97)] PrepareNewCrashReport failed
