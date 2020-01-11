@@ -1,20 +1,10 @@
 <form [formGroup]="searchForm" (submit)="search(searchForm)">
   <div >
-    <!-- <label>Title:</label> -->
-    <!-- <input formControlName="title" type="text"> -->
-
     <mat-form-field class="title-width" >
         <input matInput formControlName="title" placeholder="Title">
       </mat-form-field>
-<!--
-    <select formControlName="priority">
-      <option [ngValue]="null">Select</option>
-      <option *ngFor="let priority of priorities">
-        {{priority}}
-      </option>
-    </select> -->
 
-    <mat-form-field class="priority-width" >
+      <mat-form-field class="priority-width" >
         <mat-label>Priority</mat-label>
         <mat-select formControlName="priority">
           <mat-option *ngFor="let priority of priorities" [value]="priority">
@@ -22,14 +12,6 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-
-
-    <!-- <select formControlName="reporter">
-      <option [ngValue]="null">Select</option>
-      <option *ngFor="let reporter of reporters">
-        {{reporter}}
-      </option>
-    </select> -->
 
     <mat-form-field class="reporter-width">
         <mat-label>Reporter</mat-label>
@@ -39,14 +21,6 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-
-
-    <!-- <select formControlName="status">
-      <option [ngValue]="null">Select</option>
-      <option *ngFor="let status of statuses">
-        {{status}}
-      </option>
-    </select> -->
 
     <mat-form-field class="status-width">
         <mat-label>Status</mat-label>
@@ -61,10 +35,6 @@
     <button mat-raised-button color="primary" class = "button-clear" (click)="deleteFilters()">Clear</button>
   </div>
 </form>
-<!-- <div>
-    <button (click)="deleteFilters()">Delete all filters</button>
-</div> -->
-<!-- <a [routerLink]="['bugs/new']">Report New Bug</a> -->
   <button mat-icon-button class = "new-post-button" [routerLink]="['bugs/new']">
     <mat-icon>add</mat-icon>
   </button>
@@ -158,37 +128,3 @@
   </div>
 </div>
 
-<!-- <table mdbTable>
-  <thead>
-      <tr>
-        <td *ngFor="let head of headElements" scope="col" (click)="sorting(head)">{{head}} </td>
-      </tr>
-  </thead>
-  <tbody>
-    <tr mdbTableCol *ngFor="let bug of bugs">
-      <td>{{bug.title}}</td>
-      <td>{{bug.priority}}</td>
-      <td>{{bug.reporter}}</td>
-      <td>{{bug.createdAt | date:'shortDate' }}</td>
-      <td>{{bug.status}}</td>
-      <td>{{bug.id}}</td>
-      <td>{{bug.description}}</td>
-      <td>
-        <a [routerLink] = "['bugs/edit']" [queryParams]="{id: bug.id }"> <i class="fa fa-edit"></i></a>
-      </td>
-      <td>
-        <a [routerLink] = "['bugs/comments/new']" [queryParams]="{id: bug.id }"> <i class="fa fa-comment-medical"></i></a>
-      </td>
-      <td (click)="delete(bug.id)">
-          <i class="fa fa-trash-alt"></i>
-      </td>
-    </tr>
-  </tbody>
-</table> -->
-
-<!-- <router-outlet></router-outlet> -->
-
-<!-- <button (click) = "paging('previous')" [disabled]="currentPage<1"> <img src="https://image.flaticon.com/icons/svg/14/14926.svg" height="10px" ></button>
-{{currentPage+1}}
-<button (click) = "paging('next')" [disabled]="currentPage+1==totalPages"><img src="https://image.flaticon.com/icons/svg/32/32213.svg" height="10px"></button>
- -->

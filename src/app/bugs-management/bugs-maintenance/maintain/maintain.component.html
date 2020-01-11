@@ -46,9 +46,8 @@
     </div>
     <div *ngIf="!commentsMode">
       <div>
-        <button mat-raised-button color="primary"
-                class="button-submit"
-                [disabled] = "(this.submitBugAlreadyPressed || !this.maintainForm.valid  || !this.maintainForm.dirty)">Submit</button>
+        <button mat-raised-button color="primary" class="button-submit"
+          [disabled]="(this.submitBugAlreadyPressed || !this.maintainForm.valid  || !this.maintainForm.dirty)">Submit</button>
       </div>
     </div>
   </div>
@@ -58,38 +57,38 @@
       <button mat-raised-button color="primary" type="button" (click)="addComments(true)" class="button-submit">Add New
         Comment</button>
     </div>
-
+    <div *ngIf="!maintainForm.controls.comments.disabled" class="button-block">
+      <button mat-raised-button color="primary" class="button-submit float-right"
+        [disabled]="(!this.maintainForm.valid  || !this.maintainForm.dirty)">Submit</button>
+    </div>
     <h3 class="mat-subheader">Comments List</h3>
+
     <div class="comments-list">
       <div class="mat-comments mat-elevation-z4" *ngFor="let commentGroup of getControls(maintainForm, 'comments')">
+
         <div [formGroup]="commentGroup">
-          <div class="mat-list-reporter">
-            <!--<label class="mat-subheader">Reporter:</label>
-            <mat-radio-group aria-labelledby="radio-group-reporter" formControlName="reporter" required>
-              <mat-radio-button class="radio-button-reporter" *ngFor="let reporter of reporters" [value]="reporter">
-                {{reporter}}
-              </mat-radio-button>
-            </mat-radio-group>-->
-            <mat-form-field appearance="standard">
-              <mat-label>Reporter Name</mat-label>
-              <input matInput formControlName="reporter" required>
-            </mat-form-field>
-          </div>
-          <div class="mat-list-comments">
-            <mat-form-field class="mat-list-text-area">
-              <textarea matInput formControlName="description" placeholder="Description" required></textarea>
-            </mat-form-field>
-          </div>
+          <ol>
+            <li>
+              <div class="mat-list-reporter">
+                <mat-form-field appearance="standard">
+                  <mat-label>Reporter Name</mat-label>
+                  <input matInput formControlName="reporter" required>
+                </mat-form-field>
+              </div>
+              <div class="mat-list-comments">
+                <mat-form-field class="mat-list-text-area">
+                  <textarea matInput formControlName="description" placeholder="Description" required></textarea>
+                </mat-form-field>
+              </div>
+            </li>
+          </ol>
         </div>
+
       </div>
     </div>
-    <div *ngIf="!maintainForm.controls.comments.disabled">
-      <button mat-raised-button color="primary"
-              class="button-submit float-right"
-              [disabled] = "(!this.maintainForm.valid  || !this.maintainForm.dirty)">Submit</button>
-    </div>
+
   </div>
-  <button mat-icon-button class = "back-button" [routerLink]="['']">
+  <button mat-icon-button class="back-button" [routerLink]="['']">
     <mat-icon>arrow_back</mat-icon>
   </button>
 </form>

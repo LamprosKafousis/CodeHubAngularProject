@@ -13,9 +13,7 @@ import { MatSort, MatTableDataSource } from '@angular/material';
 export class ListComponent implements OnInit {
 
   constructor(private getBugsService: GetBugsService, private deleteBugsService: DeleteBugsService) { }
-  //bugs: Bug[];
-  sort: MatSort;
-  //dataSource: Bug;
+  sort: MatSort = new MatSort();
   dataSource: MatTableDataSource<Bug>;
   displayedColumns: string[] = ['title', 'priority', 'reporter', 'createdAt', 'status', 'edit_action', 'comment_action', 'delete_action' ];
   headElements = ['title', 'priority', 'reporter', 'createdAt', 'status'];
@@ -26,7 +24,7 @@ export class ListComponent implements OnInit {
   priorities = [1, 2, 3];
   reporters = ['QA', 'PO', 'DEV'];
   statuses = ['Ready for test', 'Done', 'Rejected'];
-  sortHead;
+  sortHead: string;
   title;
   priority;
   reporter;
@@ -50,12 +48,9 @@ export class ListComponent implements OnInit {
      this.status, null)
     .subscribe( res => this.getBugsList(res)); }
 
-  //sorting( sortHead: string) {
   sorting( event: any) {
-    //this.sortHead = sortHead;
-    this.sortHead = event.active;
+    this.sortHead = event.active + ',' + event.direction;
     this.currentPage = 0 ;
-    //this.getBugsService.getBugs(sortHead, 0, null,
     this.getBugsService.getBugs(event.active, 0, null,
       this.title,
       this.priority,
@@ -75,11 +70,10 @@ export class ListComponent implements OnInit {
   }
 
   getBugsList( res ) {
-   // this.bugs = res.body as Bug[];
-   //this.dataSource=res.body;
     this.totalPages = res.headers.get('Totalpages');
     this.dataSource = new MatTableDataSource(res.body);
     this.dataSource.sort = this.sort;
+    this.sort.disableClear = true;
   }
 
   deleteFilters() {
@@ -93,7 +87,6 @@ export class ListComponent implements OnInit {
   }
 
   search() {
-    console.log("Searchhhhh");
     this.currentPage = 0 ;
     this.title = this.searchForm.controls['title'].value;
     this.priority = this.searchForm.controls['priority'].value;
