@@ -89,7 +89,7 @@ describe('MaintainComponent', () => {
 // it("Form is valid"//
 
   it('maintainForm is valid', () => {
-    component.initializeForm();
+   component.initializeForm();
 
     const titleControl = component.maintainForm.get('title');
     const descriptionControl = component.maintainForm.get('description');
@@ -100,30 +100,8 @@ describe('MaintainComponent', () => {
     titleControl.setValue('rania');
     descriptionControl.setValue('raniatest');
     priorityControl.setValue('1');
-    reporterControl.setValue('QA');
-    statusControl.setValue('Rejected');
-
+ //   reporterControl.setValue('QA');
+ //statusControl.setValue('Rejected');
+//    statusControl.setValue('');
     expect(component.maintainForm.valid).toBeTruthy();
-  });
-
-// // it("Form is valid"//
-//     expect(component.maintainForm.valid).toBeTruthy();
-
-
-  // it('can be used with objects as values', async(() => {
-
-  //   let [minor, major, critical] = [{minor: '1'}, {major: '2'}, {critical: '3'}];
-
-  //   fixture.componentInstance.value[0] = minor;
-  //   fixture.componentInstance.value[1] = major;
-  //   fixture.componentInstance.value[2] = critical;
-
-  //   // checking initial values
-  //   fixture.detectChanges();
-  //   expectRadios(fixture.nativeElement, [0, 0]);
-  //   expect(getInput(fixture.nativeElement, 0).value).toEqual({}.toString());
-  //   expect(getInput(fixture.nativeElement, 1).value).toEqual({}.toString());
-
-
-
-});
+  });});

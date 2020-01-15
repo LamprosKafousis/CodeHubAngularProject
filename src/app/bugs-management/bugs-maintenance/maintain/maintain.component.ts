@@ -58,12 +58,12 @@ export class MaintainComponent implements OnInit {
       this.initializeForm();
     }
 
-    this.maintainForm.controls.reporter.valueChanges.subscribe( (value: string) => {
-      if (value === 'QA') {
-        this.maintainForm.controls.status.setValidators(Validators.required);
-      } else {
-        this.maintainForm.controls.status.clearValidators(); }
-      this.maintainForm.controls.status.updateValueAndValidity() ; });
+    // this.maintainForm.controls.reporter.valueChanges.subscribe( (value: string) => {
+    //   if (value === 'QA') {
+    //     this.maintainForm.controls.status.setValidators(Validators.required);
+    //   } else {
+    //     this.maintainForm.controls.status.clearValidators(); }
+    //   this.maintainForm.controls.status.updateValueAndValidity() ; });
 }
 
   initializeForm() {
@@ -118,6 +118,8 @@ export class MaintainComponent implements OnInit {
       break;
      }
     }
+
+    this.setDynamicFormValidation();
   }
 
   getControls(frmGrp: FormGroup, key: string) {
@@ -201,5 +203,14 @@ export class MaintainComponent implements OnInit {
     console.log(paramValue);
     return paramValue;
   }
+
+  setDynamicFormValidation() {
+  this.maintainForm.controls.reporter.valueChanges.subscribe( (value: string) => {
+    if (value === 'QA') {
+      this.maintainForm.controls.status.setValidators(Validators.required);
+    } else {
+      this.maintainForm.controls.status.clearValidators(); }
+    this.maintainForm.controls.status.updateValueAndValidity() ; });
+    }
 
 }
