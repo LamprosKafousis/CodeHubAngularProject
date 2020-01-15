@@ -46,9 +46,8 @@
     </div>
     <div *ngIf="!commentsMode">
       <div>
-        <button mat-raised-button color="primary"
-                class="button-submit"
-                [disabled] = "(this.submitBugAlreadyPressed || !this.maintainForm.valid  || !this.maintainForm.dirty)">Submit</button>
+        <button mat-raised-button color="primary" class="button-submit"
+          [disabled]="(this.submitBugAlreadyPressed || !this.maintainForm.valid  || !this.maintainForm.dirty)">Submit</button>
       </div>
     </div>
   </div>
@@ -61,7 +60,8 @@
 
     <h3 class="mat-subheader">Comments List</h3>
     <div class="comments-list">
-      <div class="mat-comments mat-elevation-z4" *ngFor="let commentGroup of getControls(maintainForm, 'comments')">
+      <div class="mat-comments mat-elevation-z4"
+        *ngFor="let commentGroup of getControls(maintainForm, 'comments'); let idx = index">
         <div [formGroup]="commentGroup">
           <div class="mat-list-reporter">
             <mat-form-field appearance="standard">
@@ -78,12 +78,11 @@
       </div>
     </div>
     <div *ngIf="!maintainForm.controls.comments.disabled">
-      <button mat-raised-button color="primary"
-              class="button-submit float-right"
-              [disabled] = "(!this.maintainForm.valid  || !this.maintainForm.dirty)">Submit</button>
+      <button mat-raised-button color="primary" class="button-submit float-right"
+        [disabled]="(!this.maintainForm.valid  || !this.maintainForm.dirty)">Submit</button>
     </div>
   </div>
-  <button mat-icon-button class = "back-button" [routerLink]="['']">
+  <button mat-icon-button class="back-button" [routerLink]="['']">
     <mat-icon>arrow_back</mat-icon>
   </button>
 </form>
